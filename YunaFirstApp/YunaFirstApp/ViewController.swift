@@ -10,6 +10,8 @@ import UIKit
 import CoreMotion
 import MultipeerConnectivity
 
+class game {}
+
 class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessionDelegate, UITextFieldDelegate {
     
     let serviceType = "Indian-Poker"
@@ -23,13 +25,17 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
 
     @IBOutlet weak var cardView: UIImageView!
     @IBOutlet weak var leftCards: UILabel!
-    @IBOutlet weak var player1chips: UIImageView!
-    @IBOutlet weak var player2chips: UIImageView!
+    @IBOutlet weak var player1betchips: UIImageView!
+    @IBOutlet weak var player2betchips: UIImageView!
+    @IBOutlet weak var player1leftchips: UIImageView!
+    @IBOutlet weak var player2leftchips: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        player1chips.image = UIImage(named: "chip1.png")
-        player2chips.image = UIImage(named: "chip1.png")
+        player1betchips.image = UIImage(named: "chip1.png")
+        player2betchips.image = UIImage(named: "chip1.png")
+        player1leftchips.image = UIImage(named: "chips.png")
+        player2leftchips.image = UIImage(named: "chips.png")
         self.peerID = MCPeerID(displayName: UIDevice.current.name)
         self.session = MCSession(peer: peerID)
         self.session.delegate = self
