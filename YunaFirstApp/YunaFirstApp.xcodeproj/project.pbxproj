@@ -10,6 +10,7 @@
 		CE4C9ADD1F1B3D4500899BEF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4C9ADC1F1B3D4500899BEF /* MainViewController.swift */; };
 		CE4C9AE31F1B5A3200899BEF /* indianpokermark.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4C9AE21F1B5A3200899BEF /* indianpokermark.png */; };
 		CE81641D1F1B6A2F0009D404 /* chip1.png in Resources */ = {isa = PBXBuildFile; fileRef = CE81641C1F1B6A2F0009D404 /* chip1.png */; };
+		CE81641F1F1B83740009D404 /* chips.png in Resources */ = {isa = PBXBuildFile; fileRef = CE81641E1F1B83740009D404 /* chips.png */; };
 		CEB508061F1A16C80083A226 /* card1.png in Resources */ = {isa = PBXBuildFile; fileRef = CEB508051F1A16C80083A226 /* card1.png */; };
 		CEB508081F1A16D00083A226 /* card2.png in Resources */ = {isa = PBXBuildFile; fileRef = CEB508071F1A16D00083A226 /* card2.png */; };
 		CEB5080A1F1A16D60083A226 /* card3.png in Resources */ = {isa = PBXBuildFile; fileRef = CEB508091F1A16D60083A226 /* card3.png */; };
@@ -31,6 +32,7 @@
 		CE4C9ADC1F1B3D4500899BEF /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		CE4C9AE21F1B5A3200899BEF /* indianpokermark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indianpokermark.png; sourceTree = "<group>"; };
 		CE81641C1F1B6A2F0009D404 /* chip1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chip1.png; sourceTree = "<group>"; };
+		CE81641E1F1B83740009D404 /* chips.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chips.png; sourceTree = "<group>"; };
 		CEB508051F1A16C80083A226 /* card1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card1.png; sourceTree = "<group>"; };
 		CEB508071F1A16D00083A226 /* card2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card2.png; sourceTree = "<group>"; };
 		CEB508091F1A16D60083A226 /* card3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card3.png; sourceTree = "<group>"; };
@@ -65,6 +67,7 @@
 			isa = PBXGroup;
 			children = (
 				CE4C9AE21F1B5A3200899BEF /* indianpokermark.png */,
+				CE81641E1F1B83740009D404 /* chips.png */,
 				CE81641C1F1B6A2F0009D404 /* chip1.png */,
 				CEB508051F1A16C80083A226 /* card1.png */,
 				CEB508071F1A16D00083A226 /* card2.png */,
@@ -174,6 +177,7 @@
 				CEFF2D6F1F172A3F005F80A7 /* LaunchScreen.storyboard in Resources */,
 				CEB508121F1A198A0083A226 /* card7.png in Resources */,
 				CEB5080A1F1A16D60083A226 /* card3.png in Resources */,
+				CE81641F1F1B83740009D404 /* chips.png in Resources */,
 				CEB508081F1A16D00083A226 /* card2.png in Resources */,
 				CEB5080E1F1A19750083A226 /* card5.png in Resources */,
 				CE4C9AE31F1B5A3200899BEF /* indianpokermark.png in Resources */,
