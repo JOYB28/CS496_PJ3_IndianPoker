@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="fFL-5c-OrH">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Main View Controller-->
+        <scene sceneID="ope-G4-3eE">
+            <objects>
+                <viewController id="fFL-5c-OrH" customClass="MainViewController" customModule="YunaFirstApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Bdd-1j-BR1"/>
+                        <viewControllerLayoutGuide type="bottom" id="jD1-gL-jeq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="IV8-yN-fKb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Dg-9N-OVe">
+                                <rect key="frame" x="90" y="41" width="195" height="195"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ciD-z4-cRA">
+                                <rect key="frame" x="122" y="261" width="131" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="게임상대연결"/>
+                                <connections>
+                                    <action selector="searchPlayer:" destination="fFL-5c-OrH" eventType="touchUpInside" id="jWd-Ry-UQ5"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xp2-nd-bZU">
+                                <rect key="frame" x="153" y="346" width="69" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="다음 페이지"/>
+                                <connections>
+                                    <action selector="nextPage:" destination="fFL-5c-OrH" eventType="touchUpInside" id="g30-gb-aFS"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="mark" destination="0Dg-9N-OVe" id="gPQ-AE-w5h"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="mainToNext" id="lew-VN-Sew"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FPb-W6-aYP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-966" y="0.0"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="YunaFirstApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nQM-sv-YGg">
+                                <rect key="frame" x="26" y="151" width="323" height="500"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="500" id="oBD-nB-cyt"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lPo-y1-b9O">
+                                <rect key="frame" x="16" y="40" width="343" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ny3-XT-yjO">
+                                <rect key="frame" x="0.0" y="116" width="375" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="cardChangeButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZMN-kd-cz3"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KqO-04-vZ0">
+                                <rect key="frame" x="257" y="78" width="68" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="찾기"/>
+                                <connections>
+                                    <action selector="browserBtnTab:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cno-w3-2s7"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="lPo-y1-b9O" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="FnC-yr-lMA"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="nQM-sv-YGg" secondAttribute="trailing" constant="10" id="YZF-LJ-tYv"/>
+                            <constraint firstItem="ny3-XT-yjO" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="fAc-p8-emZ"/>
+                            <constraint firstItem="lPo-y1-b9O" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="fBb-uq-17p"/>
+                            <constraint firstItem="lPo-y1-b9O" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="nBU-y7-91k"/>
+                            <constraint firstAttribute="trailing" secondItem="ny3-XT-yjO" secondAttribute="trailing" id="tp2-5K-odC"/>
+                            <constraint firstItem="nQM-sv-YGg" firstAttribute="top" secondItem="ny3-XT-yjO" secondAttribute="bottom" constant="5" id="wg2-lP-JNP"/>
+                            <constraint firstItem="nQM-sv-YGg" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="10" id="wkq-7o-Abw"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="nQM-sv-YGg" secondAttribute="bottom" constant="16" id="xc2-7I-Knn"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="cardView" destination="nQM-sv-YGg" id="kOr-U9-Gqz"/>
+                        <outlet property="leftCards" destination="lPo-y1-b9O" id="nxb-3v-tSh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-217" y="0.0"/>
+        </scene>
+    </scenes>
+</document>
