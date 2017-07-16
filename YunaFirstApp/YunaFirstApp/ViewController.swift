@@ -11,16 +11,36 @@ import CoreMotion
 import MultipeerConnectivity
 
 class Game {
+    var cardSet = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10]
     var myChips = 30
     var yourChips = 30
     var myBet = 0
     var yourBet = 0
     var meFirst = true
+    var newSet = true
     var myCard: Int!
     var yourCard: Int!
     var next: Int?
     
-    func myTurn(n: Int) {
+    func pickMyCard() -> Int {
+        let index = Int(arc4random_uniform(UInt32(cardSet.count)))
+        self.myCard = cardSet.remove(at: index)
+        if (cardSet.count == 0) {            //new card deck
+            cardSet = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10]
+        }
+        return self.myCard
+    }
+    
+    func pickYourCard(n: Int) {
+        cardSet.removeFirst(n)
+        self.yourCard = n
+        if (cardSet.count == 0) {            //new card deck
+            cardSet = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10]
+        }
+    }
+    
+    func myTurn(n: Int) -> Bool? {
+        newSet = false
         if (n == 0 ) {          // die
             myChips -= myBet
             yourChips += (myBet + yourBet)
@@ -28,21 +48,37 @@ class Game {
                 yourChips += 10
                 myChips -= 10
             }
+            meFirst = false
+            newSet = true
         } else if ( n > yourBet - myBet) {  // more bet
             myChips -= n
             myBet += n
         } else if ( myCard > yourCard) {    // Card open (win)
             myChips += (myBet + yourBet)
             yourChips -= (myBet + yourBet)
+            meFirst = true
+            newSet = true
         } else if ( myCard == yourCard) {   //          (draw)
             // next Stage
+            newSet = true
         } else if ( myCard < yourCard) {    //          (loose)
             myChips -= (myBet + yourBet)
             yourChips += (myBet + yourBet)
+            meFirst = false
+            newSet = true
         }
+        
+        // Game Over
+        if (yourChips == 0) {
+            return true
+        } else if (myChips == 0) {
+            return false
+        }
+        return nil
     }
     
-    func yourTurn(n: Int) {
+    func yourTurn(n: Int) -> Bool? {
+        newSet = false
         if (n == 0 ) {          // die
             myChips += myBet
             yourChips -= (myBet + yourBet)
@@ -50,19 +86,34 @@ class Game {
                 myChips += 10
                 yourChips -= 10
             }
+            meFirst = true
+            newSet = true
         } else if ( n > yourBet - myBet) {  // more bet
             yourChips -= n
             yourBet += n
         } else if ( myCard > yourCard) {    // Card open (win)
-
             myChips += (myBet + yourBet)
             yourChips -= (myBet + yourBet)
+            meFirst = true
+            newSet = true
         } else if ( myCard == yourCard) {   //           (draw)
             // next Stage
+            newSet = true
         } else if ( myCard < yourCard) {    //           (loose)
             myChips -= (myBet + yourBet)
             yourChips += (myBet + yourBet)
+            meFirst = false
+            newSet = true
         }
+        
+        
+        // Game Over
+        if (yourChips == 0) {
+            return true
+        } else if (myChips == 0) {
+            return false
+        }
+        return nil
     }
     
     
@@ -77,9 +128,11 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
     var session: MCSession!
     var peerID: MCPeerID!
     
-    var numset = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10]
+    var cntTouch = 0
     let game = Game()
 
+    @IBOutlet weak var gameResult: UILabel!
+    @IBOutlet weak var touchCnt: UILabel!
     @IBOutlet weak var cardView: UIImageView!
     @IBOutlet weak var leftCards: UILabel!
     @IBOutlet weak var chipImageView1: UIImageView!
@@ -113,6 +166,20 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         self.assistant = MCAdvertiserAssistant(serviceType: serviceType, discoveryInfo: nil, session: self.session)
         // 채팅 시작을
         self.assistant.start()
+        
+        var chooseFirst = 200 + Int(arc4random_uniform(UInt32(10)))
+        
+        let data = NSData(bytes: &chooseFirst, length: MemoryLayout<NSInteger>.size)
+        do {
+            try self.session.send(data as Data, toPeers: self.session.connectedPeers, with: MCSessionSendDataMode.unreliable)
+        } catch {
+            print(error)
+        }
+        
+        let currentCard = UIImage(named: "card\(chooseFirst).png")
+        self.cardView.image = currentCard
+        //leftCards.text = numset.description
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -120,12 +187,30 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func cardChangeButton(_ sender: Any) {
-        if (numset.count == 0) {            //new card deck
-            numset = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10]
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        cntTouch += 1
+        leftCards.text = cntTouch.description
+    }
+    
+    
+    @IBAction func shakeButton(_ sender: Any) {
+        game.myTurn(n: cntTouch)
+        var tempCntTouch = cntTouch + 100
+        let data = NSData(bytes: &tempCntTouch, length: MemoryLayout<NSInteger>.size)
+        
+        do {
+            try self.session.send(data as Data, toPeers: self.session.connectedPeers, with: MCSessionSendDataMode.unreliable)
+        } catch {
+            print(error)
         }
         
-        var index = Int(arc4random_uniform(UInt32(numset.count)))
+       
+        
+    }
+    
+    @IBAction func cardChangeButton(_ sender: Any) {
+        
+        var number = Int(arc4random_uniform(UInt32(10)))
         
         let data = NSData(bytes: &index, length: MemoryLayout<NSInteger>.size)
         
@@ -138,18 +223,14 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         let cardNum = numset.remove(at: index)
         let currentCard = UIImage(named: "card\(cardNum).png")
         self.cardView.image = currentCard
-        leftCards.text = numset.description
+        //leftCards.text = numset.description
     }
     
     func updateCard(index: Int, fromPeer peerID: MCPeerID) {
-        if (numset.count == 0) {            //new card deck
-            numset = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10]
-        }
-        numset.remove(at: index)
-        let cardNum = numset.remove(at: index)
+
         let currentCard = UIImage(named: "card\(cardNum).png")
         self.cardView.image = currentCard
-        leftCards.text = numset.description
+        //leftCards.text = numset.description
     }
     
     @IBAction func browserBtnTab(_ sender: Any) {
@@ -178,9 +259,12 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
             let data = NSData(data: data)
             var u2num : NSInteger = 0
             data.getBytes(&u2num, length: data.length)
-            
+            if (u2num >= 100) {
+                let temp = u2num - 100
+                self.game.yourTurn(n: temp)
+            }
             // 카드 업데이트
-            self.updateCard(index: u2num, fromPeer: peerID)
+            // self.updateCard(index: u2num, fromPeer: peerID)
         }
     }
 

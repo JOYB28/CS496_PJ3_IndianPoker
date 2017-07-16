@@ -176,7 +176,7 @@
                                     <action selector="cardChangeButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZMN-kd-cz3"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lPo-y1-b9O">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="touch cnt" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lPo-y1-b9O">
                                 <rect key="frame" x="0.0" y="618" width="375" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -191,6 +191,28 @@
                                     <action selector="browserBtnTab:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cno-w3-2s7"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dmu-dn-Sxa">
+                                <rect key="frame" x="22" y="171" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="shake"/>
+                                <connections>
+                                    <action selector="shakeButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RX1-Ue-L21"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="result" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YXu-np-hRZ">
+                                <rect key="frame" x="22" y="285" width="330" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="leftcards" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1nF-jo-cq6">
+                                <rect key="frame" x="26" y="516" width="326" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -204,12 +226,14 @@
                         <outlet property="chipImageView2" destination="Hx6-Jf-hf6" id="7yL-we-TO5"/>
                         <outlet property="chipsLabel1" destination="N2N-TD-3jV" id="ogm-IQ-Y6y"/>
                         <outlet property="chipsLabel2" destination="qei-NI-LvR" id="KDZ-Hu-May"/>
-                        <outlet property="leftCards" destination="lPo-y1-b9O" id="nxb-3v-tSh"/>
+                        <outlet property="gameResult" destination="YXu-np-hRZ" id="naf-eD-XMy"/>
+                        <outlet property="leftCards" destination="1nF-jo-cq6" id="l7Z-Xw-ElE"/>
+                        <outlet property="touchCnt" destination="lPo-y1-b9O" id="WaH-GN-6Ny"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="433" y="0.0"/>
+            <point key="canvasLocation" x="432.80000000000001" y="-0.44977511244377816"/>
         </scene>
     </scenes>
 </document>
