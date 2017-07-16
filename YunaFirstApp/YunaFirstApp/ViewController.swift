@@ -23,10 +23,13 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
 
     @IBOutlet weak var cardView: UIImageView!
     @IBOutlet weak var leftCards: UILabel!
+    @IBOutlet weak var player1chips: UIImageView!
+    @IBOutlet weak var player2chips: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        player1chips.image = UIImage(named: "chip1.png")
+        player2chips.image = UIImage(named: "chip1.png")
         self.peerID = MCPeerID(displayName: UIDevice.current.name)
         self.session = MCSession(peer: peerID)
         self.session.delegate = self
