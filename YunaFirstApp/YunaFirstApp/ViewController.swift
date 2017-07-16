@@ -10,7 +10,63 @@ import UIKit
 import CoreMotion
 import MultipeerConnectivity
 
-class game {}
+class Game {
+    var myChips = 30
+    var yourChips = 30
+    var myBet = 0
+    var yourBet = 0
+    var meFirst = true
+    var myCard: Int!
+    var yourCard: Int!
+    var next: Int?
+    
+    func myTurn(n: Int) {
+        if (n == 0 ) {          // die
+            myChips -= myBet
+            yourChips += (myBet + yourBet)
+            if (myCard == 10) {
+                yourChips += 10
+                myChips -= 10
+            }
+        } else if ( n > yourBet - myBet) {  // more bet
+            myChips -= n
+            myBet += n
+        } else if ( myCard > yourCard) {    // Card open (win)
+            myChips += (myBet + yourBet)
+            yourChips -= (myBet + yourBet)
+        } else if ( myCard == yourCard) {   //          (draw)
+            // next Stage
+        } else if ( myCard < yourCard) {    //          (loose)
+            myChips -= (myBet + yourBet)
+            yourChips += (myBet + yourBet)
+        }
+    }
+    
+    func yourTurn(n: Int) {
+        if (n == 0 ) {          // die
+            myChips += myBet
+            yourChips -= (myBet + yourBet)
+            if (yourCard == 10) {
+                myChips += 10
+                yourChips -= 10
+            }
+        } else if ( n > yourBet - myBet) {  // more bet
+            yourChips -= n
+            yourBet += n
+        } else if ( myCard > yourCard) {    // Card open (win)
+
+            myChips += (myBet + yourBet)
+            yourChips -= (myBet + yourBet)
+        } else if ( myCard == yourCard) {   //           (draw)
+            // next Stage
+        } else if ( myCard < yourCard) {    //           (loose)
+            myChips -= (myBet + yourBet)
+            yourChips += (myBet + yourBet)
+        }
+    }
+    
+    
+}
 
 class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessionDelegate, UITextFieldDelegate {
     
@@ -22,20 +78,31 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
     var peerID: MCPeerID!
     
     var numset = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10]
+    let game = Game()
 
     @IBOutlet weak var cardView: UIImageView!
     @IBOutlet weak var leftCards: UILabel!
-    @IBOutlet weak var player1betchips: UIImageView!
-    @IBOutlet weak var player2betchips: UIImageView!
-    @IBOutlet weak var player1leftchips: UIImageView!
-    @IBOutlet weak var player2leftchips: UIImageView!
-    
+    @IBOutlet weak var chipImageView1: UIImageView!
+    @IBOutlet weak var chipImageView2: UIImageView!
+    @IBOutlet weak var betImageView1: UIImageView!
+    @IBOutlet weak var betImageView2: UIImageView!
+
+    @IBOutlet weak var chipsLabel1: UILabel!
+    @IBOutlet weak var chipsLabel2: UILabel!
+    @IBOutlet weak var betLabel1: UILabel!
+    @IBOutlet weak var betLabel2: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        player1betchips.image = UIImage(named: "chip1.png")
-        player2betchips.image = UIImage(named: "chip1.png")
-        player1leftchips.image = UIImage(named: "chips.png")
-        player2leftchips.image = UIImage(named: "chips.png")
+        chipImageView1.image = UIImage(named: "chips.png")
+        chipImageView2.image = UIImage(named: "chips.png")
+        betImageView1.image = UIImage(named: "chip1.png")
+        betImageView2.image = UIImage(named: "chip1.png")
+        chipsLabel1.text = "30"
+        chipsLabel2.text = "30"
+        betLabel1.text = "0"
+        betLabel2.text = "0"
+        
         self.peerID = MCPeerID(displayName: UIDevice.current.name)
         self.session = MCSession(peer: peerID)
         self.session.delegate = self
