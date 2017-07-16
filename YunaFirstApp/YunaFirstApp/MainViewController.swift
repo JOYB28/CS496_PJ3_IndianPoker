@@ -80,7 +80,6 @@ class MainViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
     func session(_ session: MCSession,
                  didStartReceivingResourceWithName resourceName: String,
                  fromPeer peerID: MCPeerID, with progress: Progress)  {
-        
         // Called when a peer starts sending a file to us
     }
     
@@ -99,7 +98,6 @@ class MainViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
     func session(_ session: MCSession, peer peerID: MCPeerID,
                  didChange state: MCSessionState)  {
         // Called when a connected peer changes state (for example, goes offline)
-        
     }
 
     /*
@@ -111,5 +109,4 @@ class MainViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
         // Pass the selected object to the new view controller.
     }
     */
-
 }
