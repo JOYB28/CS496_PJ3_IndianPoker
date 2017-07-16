@@ -146,8 +146,9 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
             numset = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10]
         }
         numset.remove(at: index)
-        //let currentCard = UIImage(named: "card\(cardNum).png")
-        //self.cardView.image = currentCard
+        let cardNum = numset.remove(at: index)
+        let currentCard = UIImage(named: "card\(cardNum).png")
+        self.cardView.image = currentCard
         leftCards.text = numset.description
     }
     
