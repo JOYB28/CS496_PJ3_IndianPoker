@@ -167,8 +167,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         self.assistant = MCAdvertiserAssistant(serviceType: serviceType, discoveryInfo: nil, session: self.session)
         // 채팅 시작을
         self.assistant.start()
-<<<<<<< HEAD
-=======
+
                 
         chipImageView1.image = UIImage(named: "chips.png")
         chipImageView2.image = UIImage(named: "chips.png")
@@ -180,8 +179,6 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         betLabel2.text = "0"
         
         //pickMypick()
-
->>>>>>> 646c7e22ccbeeb7b5fcc08d9d55f8d7ce8a3c2e2
     }
     
     // 상대에게 NSData가 보내져왔을때
