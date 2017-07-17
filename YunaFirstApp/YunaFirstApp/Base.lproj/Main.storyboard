@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="fFL-5c-OrH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -9,51 +9,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Main View Controller-->
-        <scene sceneID="ope-G4-3eE">
-            <objects>
-                <viewController id="fFL-5c-OrH" customClass="MainViewController" customModule="YunaFirstApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Bdd-1j-BR1"/>
-                        <viewControllerLayoutGuide type="bottom" id="jD1-gL-jeq"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="IV8-yN-fKb">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Dg-9N-OVe">
-                                <rect key="frame" x="90" y="41" width="195" height="195"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ciD-z4-cRA">
-                                <rect key="frame" x="122" y="261" width="131" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="게임상대연결"/>
-                                <connections>
-                                    <action selector="searchPlayer:" destination="fFL-5c-OrH" eventType="touchUpInside" id="jWd-Ry-UQ5"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xp2-nd-bZU">
-                                <rect key="frame" x="153" y="346" width="69" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="다음 페이지"/>
-                                <connections>
-                                    <action selector="nextPage:" destination="fFL-5c-OrH" eventType="touchUpInside" id="g30-gb-aFS"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <outlet property="mark" destination="0Dg-9N-OVe" id="gPQ-AE-w5h"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="mainToNext" id="lew-VN-Sew"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="FPb-W6-aYP" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-687" y="0.0"/>
-        </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -183,14 +138,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KqO-04-vZ0">
-                                <rect key="frame" x="284" y="171" width="68" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="찾기"/>
-                                <connections>
-                                    <action selector="browserBtnTab:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cno-w3-2s7"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dmu-dn-Sxa">
                                 <rect key="frame" x="22" y="171" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -220,8 +167,36 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lXk-WO-IDg">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KqO-04-vZ0">
+                                        <rect key="frame" x="153" y="318" width="68" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="찾기"/>
+                                        <connections>
+                                            <action selector="browserBtnTab:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cno-w3-2s7"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fmO-ln-VoM">
+                                        <rect key="frame" x="141" y="565" width="93" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="GAME START"/>
+                                        <connections>
+                                            <action selector="gameStart:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ynq-eB-W0j"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="lXk-WO-IDg" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="bIw-l5-dWG"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="lXk-WO-IDg" secondAttribute="bottom" id="eGE-7l-TPk"/>
+                            <constraint firstItem="lXk-WO-IDg" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="lXg-5E-dnp"/>
+                            <constraint firstAttribute="trailing" secondItem="lXk-WO-IDg" secondAttribute="trailing" id="xVS-gW-OeA"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="betImageView1" destination="vsf-8W-pKV" id="phx-dK-hJv"/>
@@ -234,14 +209,16 @@
                         <outlet property="chipsLabel1" destination="N2N-TD-3jV" id="ogm-IQ-Y6y"/>
                         <outlet property="chipsLabel2" destination="qei-NI-LvR" id="KDZ-Hu-May"/>
                         <outlet property="gameResult" destination="YXu-np-hRZ" id="naf-eD-XMy"/>
+                        <outlet property="gameStartButton" destination="fmO-ln-VoM" id="mH0-GG-OYa"/>
                         <outlet property="leftCards" destination="1nF-jo-cq6" id="l7Z-Xw-ElE"/>
+                        <outlet property="startView" destination="lXk-WO-IDg" id="cbw-Wq-gov"/>
                         <outlet property="touchCnt" destination="lPo-y1-b9O" id="WaH-GN-6Ny"/>
                         <outlet property="whoseTurn" destination="mAI-jR-eZv" id="HMq-ns-Hzr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="432.80000000000001" y="-0.44977511244377816"/>
+            <point key="canvasLocation" x="440.80000000000001" y="-0.44977511244377816"/>
         </scene>
     </scenes>
 </document>
