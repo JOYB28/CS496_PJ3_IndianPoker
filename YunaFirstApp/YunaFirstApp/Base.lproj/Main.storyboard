@@ -173,7 +173,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
-                                    <action selector="cardChangeButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZMN-kd-cz3"/>
                                     <action selector="chooseFirstTurn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="p7h-2a-L4d"/>
                                 </connections>
                             </button>
