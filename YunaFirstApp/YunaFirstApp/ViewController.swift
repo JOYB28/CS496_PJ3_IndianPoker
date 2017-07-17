@@ -17,20 +17,21 @@ class Game {
     var myBet = 0
     var yourBet = 0
     var meFirst = true
+    var myturn = true
     var newSet = true
-    var myCard: Int!
-    var yourCard: Int!
-    var next: Int?
+    var myCard = 1
+    var yourCard = 1
     
     func pickMyCard() -> Int {
         let index = Int(arc4random_uniform(UInt32(cardSet.count)))
-        self.myCard = cardSet.remove(at: index)
+        myCard = cardSet.remove(at: index)
         if (cardSet.count == 0) {            //new card deck
             cardSet = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10]
         }
-        return self.myCard
+        return myCard
     }
     
+
     func pickYourCard(n: Int) {
         cardSet.removeFirst(n)
         self.yourCard = n
@@ -39,34 +40,36 @@ class Game {
         }
     }
     
-    func myTurn(n: Int) -> Bool? {
+    func myTurn() -> Bool? {
         newSet = false
-        if (n == 0 ) {          // die
-            myChips -= myBet
+        if (myBet < yourBet) {          // die
             yourChips += (myBet + yourBet)
+            myBet = 0
+            yourBet = 0
             if (myCard == 10) {
                 yourChips += 10
                 myChips -= 10
             }
             meFirst = false
             newSet = true
-        } else if ( n > yourBet - myBet) {  // more bet
-            myChips -= n
-            myBet += n
+        } else if (myBet > yourBet) {  // more bet
         } else if ( myCard > yourCard) {    // Card open (win)
             myChips += (myBet + yourBet)
-            yourChips -= (myBet + yourBet)
+            myBet = 0
+            yourBet = 0
             meFirst = true
             newSet = true
         } else if ( myCard == yourCard) {   //          (draw)
             // next Stage
             newSet = true
         } else if ( myCard < yourCard) {    //          (loose)
-            myChips -= (myBet + yourBet)
             yourChips += (myBet + yourBet)
+            myBet = 0
+            yourBet = 0
             meFirst = false
             newSet = true
         }
+        
         
         // Game Over
         if (yourChips == 0) {
@@ -77,31 +80,33 @@ class Game {
         return nil
     }
     
-    func yourTurn(n: Int) -> Bool? {
+    func yourTurn() -> Bool? {
         newSet = false
-        if (n == 0 ) {          // die
-            myChips += myBet
-            yourChips -= (myBet + yourBet)
+        if (yourBet < myBet) {          // die
+            myChips += (myBet + yourBet)
+            myBet = 0
+            yourBet = 0
             if (yourCard == 10) {
                 myChips += 10
                 yourChips -= 10
             }
+            
             meFirst = true
             newSet = true
-        } else if ( n > yourBet - myBet) {  // more bet
-            yourChips -= n
-            yourBet += n
+        } else if ( yourBet > myBet) {  // more bet
         } else if ( myCard > yourCard) {    // Card open (win)
             myChips += (myBet + yourBet)
-            yourChips -= (myBet + yourBet)
+            myBet = 0
+            yourBet = 0
             meFirst = true
             newSet = true
         } else if ( myCard == yourCard) {   //           (draw)
             // next Stage
             newSet = true
         } else if ( myCard < yourCard) {    //           (loose)
-            myChips -= (myBet + yourBet)
             yourChips += (myBet + yourBet)
+            myBet = 0
+            yourBet = 0
             meFirst = false
             newSet = true
         }
@@ -129,8 +134,10 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
     var peerID: MCPeerID!
     
     var cntTouch = 0
+    var mypick = 1
     let game = Game()
 
+    @IBOutlet weak var whoseTurn: UILabel!
     @IBOutlet weak var gameResult: UILabel!
     @IBOutlet weak var touchCnt: UILabel!
     @IBOutlet weak var cardView: UIImageView!
@@ -167,19 +174,67 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         // 채팅 시작을
         self.assistant.start()
         
-        var chooseFirst = 200 + Int(arc4random_uniform(UInt32(10)))
+        pickMypick()
+
+    }
+    
+    // 상대에게 NDData가 보내져왔을때
+    func session(_ session: MCSession, didReceive data: Data,
+                 fromPeer peerID: MCPeerID)  {
+        DispatchQueue.main.async() {
+            let data = NSData(data: data)
+            var u2num : NSInteger = 0
+            data.getBytes(&u2num, length: data.length)
+            
+            // 선 정할때 상대꺼랑 비교
+            if (u2num >= 200) {
+                if (u2num < self.mypick+200) {
+                    self.game.meFirst = true
+                    self.game.myturn = true
+                    self.whoseTurn.text = "My turn"
+                } else if (u2num > self.mypick+200) {
+                    self.game.meFirst = false
+                    self.game.myturn = false
+                    self.whoseTurn.text = "Your turn"
+                } else {
+                    self.pickMypick()
+                }
+            }
+            // 상대방 배팅이 끝났을 때
+            else if (u2num == 100) {
+                self.game.yourTurn()
+                self.chipsLabel2.text = self.game.yourChips.description
+                self.game.myturn = true
+                self.whoseTurn.text = "My turn"
+                self.game.yourBet = 0
+            }
+            // 상대가 배팅을 하나씩 했을 때
+            else if (u2num == 101) {
+                self.game.yourBet += 1
+                self.game.yourChips -= 1
+                self.betLabel2.text = self.game.yourBet.description
+                self.chipsLabel2.text = self.game.yourChips.description
+            }
+            // 카드 업데이트
+            // self.updateCard(index: u2num, fromPeer: peerID)
+        }
+    }
+    
+    // 선 정할때 내카드 뽑기
+    func pickMypick() {
+        mypick = Int(arc4random_uniform(UInt32(10))) + 1
+        var tempMypick = 200 + mypick
         
-        let data = NSData(bytes: &chooseFirst, length: MemoryLayout<NSInteger>.size)
+        let data = NSData(bytes: &tempMypick, length: MemoryLayout<NSInteger>.size)
         do {
             try self.session.send(data as Data, toPeers: self.session.connectedPeers, with: MCSessionSendDataMode.unreliable)
         } catch {
             print(error)
         }
         
-        let currentCard = UIImage(named: "card\(chooseFirst).png")
+        let currentCard = UIImage(named: "card\(mypick).png")
         self.cardView.image = currentCard
         //leftCards.text = numset.description
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -188,29 +243,43 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        cntTouch += 1
-        leftCards.text = cntTouch.description
+        if (game.myturn == true){
+            cntTouch += 1
+            self.game.myBet += 1
+            self.game.myChips -= 1
+            betLabel1.text = self.game.myBet.description
+            chipsLabel1.text = self.game.myChips.description
+            touchCnt.text = cntTouch.description
+            var tempCntTouch = 101
+            let data = NSData(bytes: &tempCntTouch, length: MemoryLayout<NSInteger>.size)
+            do {
+                try self.session.send(data as Data, toPeers: self.session.connectedPeers, with: MCSessionSendDataMode.unreliable)
+            } catch {
+                print(error)
+            }
+        }
     }
     
-    
+    // My betting
     @IBAction func shakeButton(_ sender: Any) {
-        game.myTurn(n: cntTouch)
-        var tempCntTouch = cntTouch + 100
-        let data = NSData(bytes: &tempCntTouch, length: MemoryLayout<NSInteger>.size)
+        game.myTurn()
+        var betOver = 100
+        let data = NSData(bytes: &betOver, length: MemoryLayout<NSInteger>.size)
         
         do {
             try self.session.send(data as Data, toPeers: self.session.connectedPeers, with: MCSessionSendDataMode.unreliable)
         } catch {
             print(error)
         }
-        
-       
-        
+        game.myturn = false
+        whoseTurn.text = "your turn"
+        cntTouch = 0
+        touchCnt.text = cntTouch.description
     }
     
     @IBAction func cardChangeButton(_ sender: Any) {
         
-        var number = Int(arc4random_uniform(UInt32(10)))
+        var index = Int(arc4random_uniform(UInt32(10)))
         
         let data = NSData(bytes: &index, length: MemoryLayout<NSInteger>.size)
         
@@ -220,16 +289,16 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
             print(error)
         }
         
-        let cardNum = numset.remove(at: index)
-        let currentCard = UIImage(named: "card\(cardNum).png")
-        self.cardView.image = currentCard
+//        let cardNum = numset.remove(at: index)
+//        let currentCard = UIImage(named: "card\(cardNum).png")
+//        self.cardView.image = currentCard
         //leftCards.text = numset.description
     }
     
     func updateCard(index: Int, fromPeer peerID: MCPeerID) {
 
-        let currentCard = UIImage(named: "card\(cardNum).png")
-        self.cardView.image = currentCard
+//        let currentCard = UIImage(named: "card\(cardNum).png")
+//        self.cardView.image = currentCard
         //leftCards.text = numset.description
     }
     
@@ -249,23 +318,6 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         // Called when the browser view controller is cancelled
         
         self.dismiss(animated: true, completion: nil)
-    }
-
-    
-    // 상대에게 NDData가 보내져왔을때
-    func session(_ session: MCSession, didReceive data: Data,
-                 fromPeer peerID: MCPeerID)  {
-        DispatchQueue.main.async() {
-            let data = NSData(data: data)
-            var u2num : NSInteger = 0
-            data.getBytes(&u2num, length: data.length)
-            if (u2num >= 100) {
-                let temp = u2num - 100
-                self.game.yourTurn(n: temp)
-            }
-            // 카드 업데이트
-            // self.updateCard(index: u2num, fromPeer: peerID)
-        }
     }
 
     
