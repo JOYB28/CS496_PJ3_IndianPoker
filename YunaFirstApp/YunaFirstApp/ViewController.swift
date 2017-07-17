@@ -134,6 +134,8 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
     var mypick = 1
     let game = Game()
 
+    @IBOutlet weak var startView: UIView!
+    @IBOutlet weak var gameStartButton: UIButton!
     @IBOutlet weak var whoseTurn: UILabel!
     @IBOutlet weak var gameResult: UILabel!
     @IBOutlet weak var touchCnt: UILabel!
@@ -149,16 +151,11 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
     @IBOutlet weak var betLabel1: UILabel!
     @IBOutlet weak var betLabel2: UILabel!
 
+    @IBAction func gameStart(_ sender: Any) {
+        startView.isHidden = true
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        chipImageView1.image = UIImage(named: "chips.png")
-        chipImageView2.image = UIImage(named: "chips.png")
-        betImageView1.image = UIImage(named: "chip1.png")
-        betImageView2.image = UIImage(named: "chip1.png")
-        chipsLabel1.text = "30"
-        chipsLabel2.text = "30"
-        betLabel1.text = "0"
-        betLabel2.text = "0"
         
         self.peerID = MCPeerID(displayName: UIDevice.current.name)
         self.session = MCSession(peer: peerID)
@@ -170,6 +167,21 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         self.assistant = MCAdvertiserAssistant(serviceType: serviceType, discoveryInfo: nil, session: self.session)
         // 채팅 시작을
         self.assistant.start()
+<<<<<<< HEAD
+=======
+                
+        chipImageView1.image = UIImage(named: "chips.png")
+        chipImageView2.image = UIImage(named: "chips.png")
+        betImageView1.image = UIImage(named: "chip1.png")
+        betImageView2.image = UIImage(named: "chip1.png")
+        chipsLabel1.text = "30"
+        chipsLabel2.text = "30"
+        betLabel1.text = "0"
+        betLabel2.text = "0"
+        
+        //pickMypick()
+
+>>>>>>> 646c7e22ccbeeb7b5fcc08d9d55f8d7ce8a3c2e2
     }
     
     // 상대에게 NSData가 보내져왔을때
@@ -348,14 +360,14 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
     func browserViewControllerDidFinish(
         _ browserViewController: MCBrowserViewController)  {
         // Called when the browser view controller is dismissed (ie the Done button was tapped)
-        
+        gameStartButton.isEnabled = true
         self.dismiss(animated: true, completion: nil)
     }
     
     func browserViewControllerWasCancelled(
         _ browserViewController: MCBrowserViewController)  {
         // Called when the browser view controller is cancelled
-        
+        gameStartButton.isEnabled = false
         self.dismiss(animated: true, completion: nil)
     }
 
@@ -384,7 +396,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
     func session(_ session: MCSession, peer peerID: MCPeerID,
                  didChange state: MCSessionState)  {
         // Called when a connected peer changes state (for example, goes offline)
-        
+        startView.isHidden = false
     }
 
 }
