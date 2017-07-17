@@ -21,7 +21,10 @@ class Game {
     var newSet = true
     var myCard = 1
     var yourCard = 1
+    var setWin = false
     
+    
+    //내가 이긴 경우에만 카드를 내꺼 상대꺼 뽑아서 내꺼인 경우는 1~20, 상대인 경우 21~40을 보내준다.
     func pickMyCard() -> Int {
         let index = Int(arc4random_uniform(UInt32(cardSet.count)))
         myCard = cardSet.remove(at: index)
@@ -31,14 +34,22 @@ class Game {
         return myCard
     }
     
-
+    func pickYourCard() -> Int {
+        let index = Int(arc4random_uniform(UInt32(cardSet.count)))
+        yourCard = cardSet.remove(at: index)
+        if (cardSet.count == 0) {            //new card deck
+            cardSet = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10]
+        }
+        return yourCard
+    }
+    /*
     func pickYourCard(n: Int) {
         cardSet.removeFirst(n)
         self.yourCard = n
         if (cardSet.count == 0) {            //new card deck
             cardSet = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10]
         }
-    }
+    }*/
     
     func myTurn() -> Bool? {
         newSet = false
@@ -59,6 +70,8 @@ class Game {
             yourBet = 0
             meFirst = true
             newSet = true
+            setWin = true
+
         } else if ( myCard == yourCard) {   //          (draw)
             // next Stage
             newSet = true
@@ -90,6 +103,7 @@ class Game {
                 myChips += 10
                 yourChips -= 10
             }
+            setWin = true
             
             meFirst = true
             newSet = true
@@ -100,6 +114,7 @@ class Game {
             yourBet = 0
             meFirst = true
             newSet = true
+            setWin = true
         } else if ( myCard == yourCard) {   //           (draw)
             // next Stage
             newSet = true
@@ -111,7 +126,6 @@ class Game {
             newSet = true
         }
         
-        
         // Game Over
         if (yourChips == 0) {
             return true
@@ -120,8 +134,6 @@ class Game {
         }
         return nil
     }
-    
-    
 }
 
 class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessionDelegate, UITextFieldDelegate {
@@ -180,7 +192,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         betLabel1.text = "0"
         betLabel2.text = "0"
         
-        pickMypick()
+        //pickMypick()
 
     }
     
@@ -192,27 +204,88 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
             var u2num : NSInteger = 0
             data.getBytes(&u2num, length: data.length)
             
+            /*
             // 선 정할때 상대꺼랑 비교
             if (u2num >= 200) {
                 if (u2num < self.mypick+200) {
                     self.game.meFirst = true
                     self.game.myturn = true
                     self.whoseTurn.text = "My turn"
+                    //이러면 게임 시작을 위해서 카드 뽑기
+                    sleep(4)
+                    var myNewCard = self.game.pickMyCard()
+                    let yourNewCard = self.game.pickYourCard()
+                    var temp = yourNewCard + 20
+                    let data1 = NSData(bytes: &myNewCard, length: MemoryLayout<NSInteger>.size)
+                    do {
+                        try self.session.send(data1 as Data, toPeers: self.session.connectedPeers, with: MCSessionSendDataMode.unreliable)
+                    } catch {
+                        print(error)
+                    }
+                    let data2 = NSData(bytes: &temp, length: MemoryLayout<NSInteger>.size)
+                    do {
+                        try self.session.send(data2 as Data, toPeers: self.session.connectedPeers, with: MCSessionSendDataMode.unreliable)
+                    } catch {
+                        print(error)
+                    }
+                    self.game.setWin = false
+                    self.game.myCard = myNewCard
+                    self.game.yourCard = yourNewCard
+                    
+                    let currentCard = UIImage(named: "card\(yourNewCard).png")
+                    self.cardView.image = currentCard
                 } else if (u2num > self.mypick+200) {
                     self.game.meFirst = false
                     self.game.myturn = false
                     self.whoseTurn.text = "Your turn"
                 } else {
-                    self.pickMypick()
+                    //self.pickMypick()
                 }
+            }
+            */
+            // 선이 정해짐, 버튼 한번 누르면 정해짐
+            if (u2num == 200) {
+                self.game.meFirst = false
+                self.game.myturn = false
+                self.whoseTurn.text = "Your turn"
+                //이러면 게임 시작을 위해서 카드 뽑기
+                
+                self.game.setWin = false
+                
             }
             // 상대방 배팅이 끝났을 때
             else if (u2num == 100) {
                 self.game.yourTurn()
-                self.chipsLabel2.text = self.game.yourChips.description
                 self.game.myturn = true
                 self.whoseTurn.text = "My turn"
-                self.game.yourBet = 0
+                self.chipsLabel1.text = self.game.myChips.description
+                self.chipsLabel2.text = self.game.yourChips.description
+                self.betLabel1.text = self.game.myBet.description
+                self.betLabel2.text = self.game.yourBet.description
+                // 게임을 이긴사람이 카드를 각각 뽑아 전송하기
+                if (self.game.setWin == true){
+                    var myNewCard = self.game.pickMyCard()
+                    let yourNewCard = self.game.pickYourCard()
+                    var temp = yourNewCard + 20
+                    let data1 = NSData(bytes: &myNewCard, length: MemoryLayout<NSInteger>.size)
+                    do {
+                        try self.session.send(data1 as Data, toPeers: self.session.connectedPeers, with: MCSessionSendDataMode.unreliable)
+                    } catch {
+                        print(error)
+                    }
+                    let data2 = NSData(bytes: &temp, length: MemoryLayout<NSInteger>.size)
+                    do {
+                        try self.session.send(data2 as Data, toPeers: self.session.connectedPeers, with: MCSessionSendDataMode.unreliable)
+                    } catch {
+                        print(error)
+                    }
+                    self.game.setWin = false
+                    self.game.myCard = myNewCard
+                    self.game.yourCard = yourNewCard
+                    
+                    let currentCard = UIImage(named: "card\(yourNewCard).png")
+                    self.cardView.image = currentCard
+                }
             }
             // 상대가 배팅을 하나씩 했을 때
             else if (u2num == 101) {
@@ -222,12 +295,72 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
                 self.chipsLabel2.text = self.game.yourChips.description
             }
             // 카드 업데이트
+            // 내 카드 숫자가 올때 (1~10)
+            else if (u2num >= 20) {
+                self.game.myCard = u2num - 20
+                
+                let currentCard = UIImage(named: "card\(self.game.myCard).png")
+                self.cardView.image = currentCard
+                self.game.cardSet.removeFirst(u2num-20)
+                
+            }
+            // 상대 카드 정보가 올때
+            else if (u2num >= 0) {
+                self.game.yourCard = u2num
+                self.game.cardSet.removeFirst(u2num)
+            }
             // self.updateCard(index: u2num, fromPeer: peerID)
         }
     }
     
+    @IBAction func chooseFirstTurn(_ sender: Any) {
+        //mypick = Int(arc4random_uniform(UInt32(10))) + 1
+        
+        var tempMypick = 200
+        
+        let data = NSData(bytes: &tempMypick, length: MemoryLayout<NSInteger>.size)
+        do {
+            try self.session.send(data as Data, toPeers: self.session.connectedPeers, with: MCSessionSendDataMode.unreliable)
+        } catch {
+            print(error)
+        }
+ 
+        self.game.meFirst = true
+        self.game.myturn = true
+        self.whoseTurn.text = "My turn"
+        //이러면 게임 시작을 위해서 카드 뽑기
+        sleep(4)
+        var myNewCard = self.game.pickMyCard()
+        let yourNewCard = self.game.pickYourCard()
+        var temp = yourNewCard + 20
+        let data1 = NSData(bytes: &myNewCard, length: MemoryLayout<NSInteger>.size)
+        do {
+            try self.session.send(data1 as Data, toPeers: self.session.connectedPeers, with: MCSessionSendDataMode.unreliable)
+        } catch {
+            print(error)
+        }
+        let data2 = NSData(bytes: &temp, length: MemoryLayout<NSInteger>.size)
+        do {
+            try self.session.send(data2 as Data, toPeers: self.session.connectedPeers, with: MCSessionSendDataMode.unreliable)
+        } catch {
+            print(error)
+        }
+        self.game.setWin = false
+        self.game.myCard = myNewCard
+        self.game.yourCard = yourNewCard
+        
+        let currentCard = UIImage(named: "card\(myNewCard).png")
+        self.cardView.image = currentCard
+        
+        //let currentCard = UIImage(named: "card\(mypick).png")
+        //self.cardView.image = currentCard
+        
+        //leftCards.text = numset.description
+    }
+    /*
     // 선 정할때 내카드 뽑기
     func pickMypick() {
+        
         mypick = Int(arc4random_uniform(UInt32(10))) + 1
         var tempMypick = 200 + mypick
         
@@ -242,7 +375,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         self.cardView.image = currentCard
         //leftCards.text = numset.description
     }
-    
+    */
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -269,6 +402,10 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
     // My betting
     @IBAction func shakeButton(_ sender: Any) {
         game.myTurn()
+        chipsLabel1.text = game.myChips.description
+        chipsLabel2.text = game.yourChips.description
+        betLabel1.text = game.myBet.description
+        betLabel2.text = game.yourBet.description
         var betOver = 100
         let data = NSData(bytes: &betOver, length: MemoryLayout<NSInteger>.size)
         
@@ -281,6 +418,32 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         whoseTurn.text = "your turn"
         cntTouch = 0
         touchCnt.text = cntTouch.description
+        
+        // 게임을 이긴사람이 카드를 각각 뽑아 전송하기
+        if (game.setWin == true){
+            var myNewCard = game.pickMyCard()
+            let yourNewCard = game.pickYourCard()
+            var temp = yourNewCard + 20
+            let data1 = NSData(bytes: &myNewCard, length: MemoryLayout<NSInteger>.size)
+            do {
+                try self.session.send(data1 as Data, toPeers: self.session.connectedPeers, with: MCSessionSendDataMode.unreliable)
+            } catch {
+                print(error)
+            }
+            let data2 = NSData(bytes: &temp, length: MemoryLayout<NSInteger>.size)
+            do {
+                try self.session.send(data2 as Data, toPeers: self.session.connectedPeers, with: MCSessionSendDataMode.unreliable)
+            } catch {
+                print(error)
+            }
+            game.setWin = false
+            
+            self.game.myCard = myNewCard
+            self.game.yourCard = yourNewCard
+            
+            let currentCard = UIImage(named: "card\(myNewCard).png")
+            self.cardView.image = currentCard
+        }
     }
     
     @IBAction func cardChangeButton(_ sender: Any) {
