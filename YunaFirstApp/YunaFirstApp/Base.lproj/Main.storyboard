@@ -147,7 +147,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.22854805014477145" green="0.45539063184999573" blue="0.32156925417345172" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.22745098039215686" green="0.45490196078431372" blue="0.32156862745098036" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="card0.png" translatesAutoresizingMaskIntoConstraints="NO" id="nQM-sv-YGg">
                                 <rect key="frame" x="22" y="171" width="330" height="476"/>
