@@ -95,6 +95,8 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
             {
                 if myData1.acceleration.y < -0.8 {
                     self.updateCardImage(self.game.myCard)
+                    self.initialBet()
+                    self.updateBetAndChips()
                 }
             }
         }
@@ -177,6 +179,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
                 // 게임을 이긴사람이 카드를 각각 뽑아 전송하기
                 if (self.game.nextSet == true){
                     self.pickCards()
+                    
                 }
             }
             // 상대가 배팅을 하나씩 했을 때
