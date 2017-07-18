@@ -8,20 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		CE03D7371F1DCE2E00823C4D /* card0.png in Resources */ = {isa = PBXBuildFile; fileRef = CE03D7361F1DCE2E00823C4D /* card0.png */; };
+		CE1E51161F1E19D6005B0075 /* card1.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1E510C1F1E19D6005B0075 /* card1.png */; };
+		CE1E51171F1E19D6005B0075 /* card2.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1E510D1F1E19D6005B0075 /* card2.png */; };
+		CE1E51181F1E19D6005B0075 /* card3.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1E510E1F1E19D6005B0075 /* card3.png */; };
+		CE1E51191F1E19D6005B0075 /* card4.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1E510F1F1E19D6005B0075 /* card4.png */; };
+		CE1E511A1F1E19D6005B0075 /* card5.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1E51101F1E19D6005B0075 /* card5.png */; };
+		CE1E511B1F1E19D6005B0075 /* card6.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1E51111F1E19D6005B0075 /* card6.png */; };
+		CE1E511C1F1E19D6005B0075 /* card7.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1E51121F1E19D6005B0075 /* card7.png */; };
+		CE1E511D1F1E19D6005B0075 /* card8.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1E51131F1E19D6005B0075 /* card8.png */; };
+		CE1E511E1F1E19D6005B0075 /* card9.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1E51141F1E19D6005B0075 /* card9.png */; };
+		CE1E511F1F1E19D6005B0075 /* card10.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1E51151F1E19D6005B0075 /* card10.png */; };
+		CE1E51211F1E1BCB005B0075 /* chip.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1E51201F1E1BCB005B0075 /* chip.png */; };
 		CE2F69FC1F1DB49300F2D891 /* game.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2F69FB1F1DB49300F2D891 /* game.swift */; };
 		CE4C9AE31F1B5A3200899BEF /* indianpokermark.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4C9AE21F1B5A3200899BEF /* indianpokermark.png */; };
-		CE81641D1F1B6A2F0009D404 /* chip1.png in Resources */ = {isa = PBXBuildFile; fileRef = CE81641C1F1B6A2F0009D404 /* chip1.png */; };
 		CE81641F1F1B83740009D404 /* chips.png in Resources */ = {isa = PBXBuildFile; fileRef = CE81641E1F1B83740009D404 /* chips.png */; };
-		CEB508061F1A16C80083A226 /* card1.png in Resources */ = {isa = PBXBuildFile; fileRef = CEB508051F1A16C80083A226 /* card1.png */; };
-		CEB508081F1A16D00083A226 /* card2.png in Resources */ = {isa = PBXBuildFile; fileRef = CEB508071F1A16D00083A226 /* card2.png */; };
-		CEB5080A1F1A16D60083A226 /* card3.png in Resources */ = {isa = PBXBuildFile; fileRef = CEB508091F1A16D60083A226 /* card3.png */; };
-		CEB5080C1F1A196B0083A226 /* card4.png in Resources */ = {isa = PBXBuildFile; fileRef = CEB5080B1F1A196B0083A226 /* card4.png */; };
-		CEB5080E1F1A19750083A226 /* card5.png in Resources */ = {isa = PBXBuildFile; fileRef = CEB5080D1F1A19750083A226 /* card5.png */; };
-		CEB508101F1A197E0083A226 /* card6.png in Resources */ = {isa = PBXBuildFile; fileRef = CEB5080F1F1A197E0083A226 /* card6.png */; };
-		CEB508121F1A198A0083A226 /* card7.png in Resources */ = {isa = PBXBuildFile; fileRef = CEB508111F1A198A0083A226 /* card7.png */; };
-		CEB508141F1A19920083A226 /* card8.png in Resources */ = {isa = PBXBuildFile; fileRef = CEB508131F1A19920083A226 /* card8.png */; };
-		CEB508161F1A199C0083A226 /* card9.png in Resources */ = {isa = PBXBuildFile; fileRef = CEB508151F1A199C0083A226 /* card9.png */; };
-		CEB508181F1A19A50083A226 /* card10.png in Resources */ = {isa = PBXBuildFile; fileRef = CEB508171F1A19A50083A226 /* card10.png */; };
 		CEFF2D651F172A3F005F80A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF2D641F172A3F005F80A7 /* AppDelegate.swift */; };
 		CEFF2D671F172A3F005F80A7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF2D661F172A3F005F80A7 /* ViewController.swift */; };
 		CEFF2D6A1F172A3F005F80A7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEFF2D681F172A3F005F80A7 /* Main.storyboard */; };
@@ -31,20 +31,20 @@
 
 /* Begin PBXFileReference section */
 		CE03D7361F1DCE2E00823C4D /* card0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card0.png; sourceTree = "<group>"; };
+		CE1E510C1F1E19D6005B0075 /* card1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card1.png; sourceTree = "<group>"; };
+		CE1E510D1F1E19D6005B0075 /* card2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card2.png; sourceTree = "<group>"; };
+		CE1E510E1F1E19D6005B0075 /* card3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card3.png; sourceTree = "<group>"; };
+		CE1E510F1F1E19D6005B0075 /* card4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card4.png; sourceTree = "<group>"; };
+		CE1E51101F1E19D6005B0075 /* card5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card5.png; sourceTree = "<group>"; };
+		CE1E51111F1E19D6005B0075 /* card6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card6.png; sourceTree = "<group>"; };
+		CE1E51121F1E19D6005B0075 /* card7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card7.png; sourceTree = "<group>"; };
+		CE1E51131F1E19D6005B0075 /* card8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card8.png; sourceTree = "<group>"; };
+		CE1E51141F1E19D6005B0075 /* card9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card9.png; sourceTree = "<group>"; };
+		CE1E51151F1E19D6005B0075 /* card10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card10.png; sourceTree = "<group>"; };
+		CE1E51201F1E1BCB005B0075 /* chip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chip.png; sourceTree = "<group>"; };
 		CE2F69FB1F1DB49300F2D891 /* game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = game.swift; sourceTree = "<group>"; };
 		CE4C9AE21F1B5A3200899BEF /* indianpokermark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indianpokermark.png; sourceTree = "<group>"; };
-		CE81641C1F1B6A2F0009D404 /* chip1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chip1.png; sourceTree = "<group>"; };
 		CE81641E1F1B83740009D404 /* chips.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chips.png; sourceTree = "<group>"; };
-		CEB508051F1A16C80083A226 /* card1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card1.png; sourceTree = "<group>"; };
-		CEB508071F1A16D00083A226 /* card2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card2.png; sourceTree = "<group>"; };
-		CEB508091F1A16D60083A226 /* card3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card3.png; sourceTree = "<group>"; };
-		CEB5080B1F1A196B0083A226 /* card4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card4.png; sourceTree = "<group>"; };
-		CEB5080D1F1A19750083A226 /* card5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card5.png; sourceTree = "<group>"; };
-		CEB5080F1F1A197E0083A226 /* card6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card6.png; sourceTree = "<group>"; };
-		CEB508111F1A198A0083A226 /* card7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card7.png; sourceTree = "<group>"; };
-		CEB508131F1A19920083A226 /* card8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card8.png; sourceTree = "<group>"; };
-		CEB508151F1A199C0083A226 /* card9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card9.png; sourceTree = "<group>"; };
-		CEB508171F1A19A50083A226 /* card10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card10.png; sourceTree = "<group>"; };
 		CEFF2D611F172A3F005F80A7 /* YunaFirstApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YunaFirstApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEFF2D641F172A3F005F80A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEFF2D661F172A3F005F80A7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; usesTabs = 0; };
@@ -68,20 +68,20 @@
 		CEB508001F1A0F200083A226 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				CE1E51201F1E1BCB005B0075 /* chip.png */,
+				CE1E510C1F1E19D6005B0075 /* card1.png */,
+				CE1E510D1F1E19D6005B0075 /* card2.png */,
+				CE1E510E1F1E19D6005B0075 /* card3.png */,
+				CE1E510F1F1E19D6005B0075 /* card4.png */,
+				CE1E51101F1E19D6005B0075 /* card5.png */,
+				CE1E51111F1E19D6005B0075 /* card6.png */,
+				CE1E51121F1E19D6005B0075 /* card7.png */,
+				CE1E51131F1E19D6005B0075 /* card8.png */,
+				CE1E51141F1E19D6005B0075 /* card9.png */,
+				CE1E51151F1E19D6005B0075 /* card10.png */,
 				CE4C9AE21F1B5A3200899BEF /* indianpokermark.png */,
 				CE81641E1F1B83740009D404 /* chips.png */,
-				CE81641C1F1B6A2F0009D404 /* chip1.png */,
 				CE03D7361F1DCE2E00823C4D /* card0.png */,
-				CEB508051F1A16C80083A226 /* card1.png */,
-				CEB508071F1A16D00083A226 /* card2.png */,
-				CEB508091F1A16D60083A226 /* card3.png */,
-				CEB5080B1F1A196B0083A226 /* card4.png */,
-				CEB5080D1F1A19750083A226 /* card5.png */,
-				CEB5080F1F1A197E0083A226 /* card6.png */,
-				CEB508111F1A198A0083A226 /* card7.png */,
-				CEB508131F1A19920083A226 /* card8.png */,
-				CEB508151F1A199C0083A226 /* card9.png */,
-				CEB508171F1A19A50083A226 /* card10.png */,
 			);
 			name = Image;
 			sourceTree = "<group>";
@@ -149,7 +149,7 @@
 				TargetAttributes = {
 					CEFF2D601F172A3F005F80A7 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = F8XX9NR2E4;
+						DevelopmentTeam = A42DJ8H78Z;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -177,23 +177,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE1E51191F1E19D6005B0075 /* card4.png in Resources */,
 				CEFF2D6F1F172A3F005F80A7 /* LaunchScreen.storyboard in Resources */,
-				CEB508121F1A198A0083A226 /* card7.png in Resources */,
-				CEB5080A1F1A16D60083A226 /* card3.png in Resources */,
 				CE81641F1F1B83740009D404 /* chips.png in Resources */,
-				CEB508081F1A16D00083A226 /* card2.png in Resources */,
-				CEB5080E1F1A19750083A226 /* card5.png in Resources */,
 				CE4C9AE31F1B5A3200899BEF /* indianpokermark.png in Resources */,
+				CE1E511D1F1E19D6005B0075 /* card8.png in Resources */,
 				CEFF2D6C1F172A3F005F80A7 /* Assets.xcassets in Resources */,
-				CEB5080C1F1A196B0083A226 /* card4.png in Resources */,
-				CEB508161F1A199C0083A226 /* card9.png in Resources */,
-				CEB508141F1A19920083A226 /* card8.png in Resources */,
 				CEFF2D6A1F172A3F005F80A7 /* Main.storyboard in Resources */,
+				CE1E511F1F1E19D6005B0075 /* card10.png in Resources */,
+				CE1E511A1F1E19D6005B0075 /* card5.png in Resources */,
 				CE03D7371F1DCE2E00823C4D /* card0.png in Resources */,
-				CEB508101F1A197E0083A226 /* card6.png in Resources */,
-				CE81641D1F1B6A2F0009D404 /* chip1.png in Resources */,
-				CEB508061F1A16C80083A226 /* card1.png in Resources */,
-				CEB508181F1A19A50083A226 /* card10.png in Resources */,
+				CE1E511C1F1E19D6005B0075 /* card7.png in Resources */,
+				CE1E51211F1E1BCB005B0075 /* chip.png in Resources */,
+				CE1E51171F1E19D6005B0075 /* card2.png in Resources */,
+				CE1E51161F1E19D6005B0075 /* card1.png in Resources */,
+				CE1E511B1F1E19D6005B0075 /* card6.png in Resources */,
+				CE1E51181F1E19D6005B0075 /* card3.png in Resources */,
+				CE1E511E1F1E19D6005B0075 /* card9.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,10 +331,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = F8XX9NR2E4;
+				DEVELOPMENT_TEAM = A42DJ8H78Z;
 				INFOPLIST_FILE = YunaFirstApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yoonseo;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.ac.kaist.YunaFirstApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
@@ -347,10 +347,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = F8XX9NR2E4;
+				DEVELOPMENT_TEAM = A42DJ8H78Z;
 				INFOPLIST_FILE = YunaFirstApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yoonseo;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.ac.kaist.YunaFirstApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;

@@ -38,7 +38,6 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
     @IBOutlet weak var startView: UIView!
     @IBOutlet weak var gameStartButton: UIButton!
     
-    @IBOutlet weak var whoseTurn: UILabel!
     @IBOutlet weak var gameResult: UILabel!
     @IBOutlet weak var touchCnt: UILabel!
     
@@ -51,6 +50,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
     @IBOutlet weak var betImageView1: UIImageView!
     @IBOutlet weak var betImageView2: UIImageView!
 
+    @IBOutlet weak var mynameLabel: UILabel!
     @IBOutlet weak var chipsLabel1: UILabel!
     @IBOutlet weak var chipsLabel2: UILabel!
     @IBOutlet weak var betLabel1: UILabel!
@@ -74,15 +74,18 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         self.assistant.start()
         updateCardImage(0)
         playerView1.layer.borderWidth=2
+        playerView1.layer.borderColor=UIColor.clear.cgColor
         playerView2.layer.borderWidth=2
+        playerView2.layer.borderColor=UIColor.clear.cgColor
         chipImageView1.image = UIImage(named: "chips.png")
         chipImageView2.image = UIImage(named: "chips.png")
-        betImageView1.image = UIImage(named: "chip1.png")
-        betImageView2.image = UIImage(named: "chip1.png")
+        betImageView1.image = UIImage(named: "chip.png")
+        betImageView2.image = UIImage(named: "chip.png")
         chipsLabel1.text = "30"
         chipsLabel2.text = "30"
         betLabel1.text = "0"
         betLabel2.text = "0"
+        mynameLabel.text = UIDevice.current.name
         
         // 핸드폰을 머리 위로 올리면 카드가 보이게 하는 것
         manager.accelerometerUpdateInterval = 0.6
@@ -105,6 +108,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         tapRec.numberOfTapsRequired = 1
         self.view!.addGestureRecognizer(tapRec)
     }
+
     
     func browserViewControllerDidFinish(
         _ browserViewController: MCBrowserViewController)  {
@@ -166,7 +170,6 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
             else if (num == 100) {            // 상대방 배팅이 끝났을 때
                 self.gameResult.text = self.game.yourTurn()?.description
                 self.updateTurn(myturn: true)
-                self.whoseTurn.text = "My turn"
                 self.chipsLabel1.text = self.game.myChips.description
                 self.chipsLabel2.text = self.game.yourChips.description
                 self.betLabel1.text = self.game.myBet.description
@@ -211,12 +214,10 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         
         if (myFirstCard > yourFirstCard) {  // 내가 먼저면 상대카드+20 전송
             sendNum(yourFirstCard+20)
-            whoseTurn.text = "myturn"
             self.game.meFirst = true
             self.updateTurn(myturn: true)
         } else {                            // 상대방이 먼저면 상대카드+30 전송
             sendNum(yourFirstCard+30)
-            whoseTurn.text = "your turn"
             self.game.meFirst = false
             self.updateTurn(myturn: false)
         }
@@ -314,7 +315,6 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
             print(error)
         }
         updateTurn(myturn: false)
-        whoseTurn.text = "your turn"
         cntTouch = 0
         touchCnt.text = cntTouch.description
         
@@ -335,7 +335,6 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         sendNum(100)
         
         updateTurn(myturn: false)
-        whoseTurn.text = "your turn"
         cntTouch = 0
         touchCnt.text = cntTouch.description
         
