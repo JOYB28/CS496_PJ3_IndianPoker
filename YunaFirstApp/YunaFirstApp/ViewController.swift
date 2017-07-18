@@ -30,6 +30,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
     var session: MCSession!
     var peerID: MCPeerID!
     
+    var touchPossible = false
     var cntTouch = 0
     var mypick = 1
     var result : Bool?
@@ -78,19 +79,10 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         self.assistant = MCAdvertiserAssistant(serviceType: serviceType, discoveryInfo: nil, session: self.session)
         // 채팅 시작을
         self.assistant.start()
-        updateCardImage(0)
         playerView1.layer.borderWidth=2
         playerView1.layer.borderColor=UIColor.clear.cgColor
         playerView2.layer.borderWidth=2
         playerView2.layer.borderColor=UIColor.clear.cgColor
-        chipImageView1.image = UIImage(named: "chips.png")
-        chipImageView2.image = UIImage(named: "chips.png")
-        betImageView1.image = UIImage(named: "chip.png")
-        betImageView2.image = UIImage(named: "chip.png")
-        chipsLabel1.text = "30"
-        chipsLabel2.text = "30"
-        betLabel1.text = "0"
-        betLabel2.text = "0"
         mynameLabel.text = UIDevice.current.name
         // 핸드폰을 머리 위로 올리면 카드가 보이게 하는 것
         manager.accelerometerUpdateInterval = 0.6
@@ -98,15 +90,17 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         manager.startAccelerometerUpdates(to: OperationQueue.current!) { (data, error) in
             if let myData1 = data
             {
+                // 들었을 때
                 if myData1.acceleration.y < -0.85 {
                     if (self.game.myBet == 0 && self.game.yourBet == 0 && self.game.newSet == false) {
                         self.updateCardImage(self.game.myCard)
                         self.initialBet()
                         self.updateBetAndChips()
+                        self.sendNum(50)
                     }
                 }
                 else if myData1.acceleration.y > -0.3 {
-                    
+                    self.touchPossible = false
 //                    if self.result != nil {
 //                        self.finalResultLabel.isHidden = false
 //                    }
@@ -145,8 +139,9 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
     
     @IBAction func gameStart(_ sender: Any) {
         yournameLabel.text = session.connectedPeers[0].displayName
-        startView.isHidden = true
         initializeGame()
+        updateBetAndChips()
+        startView.isHidden = true
         sendNum(0)
         chooseFirstButton.isHidden = false
         chooseFirstButton.isEnabled = true
@@ -169,7 +164,9 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
             let data = NSData(data: data)
             var num : NSInteger = 0
             data.getBytes(&num, length: data.length)
-            
+            if (num == 50) {
+                self.touchPossible = true
+            }
             if (num == 0) {            // 상대방이 게임 시작
                 self.initializeGame()
                 self.yournameLabel.text = session.connectedPeers[0].displayName
@@ -277,7 +274,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
 
     // touch 되었을 때 함수
     func touchBet() {
-        if (game.myturn == true && (self.game.myBet - self.game.yourBet < self.game.yourChips) && game.myChips > 0 && game.newSet == false ){
+        if (game.myturn == true && (self.game.myBet - self.game.yourBet < self.game.yourChips) && game.myChips > 0 && game.newSet == false && self.game.myBet != 0 && self.touchPossible){
             // 첫 배팅은 무조건 myBet과 yourBet이 같도록 하는것
             if (self.game.myBet < self.game.yourBet){
                 let diff: Int = self.game.yourBet - self.game.myBet
