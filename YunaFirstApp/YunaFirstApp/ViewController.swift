@@ -30,6 +30,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
     var session: MCSession!
     var peerID: MCPeerID!
     
+    var touchPossible = false
     var cntTouch = 0
     var mypick = 1
     var result : Bool?
@@ -96,15 +97,17 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         manager.startAccelerometerUpdates(to: OperationQueue.current!) { (data, error) in
             if let myData1 = data
             {
+                // 들었을 때
                 if myData1.acceleration.y < -0.85 {
                     if (self.game.myBet == 0 && self.game.yourBet == 0 && self.game.newSet == false) {
                         self.updateCardImage(self.game.myCard)
                         self.initialBet()
                         self.updateBetAndChips()
+                        self.sendNum(-1)
                     }
                 }
                 else if myData1.acceleration.y > -0.3 {
-                    
+                    self.touchPossible = false
 //                    if self.result != nil {
 //                        self.finalResultLabel.isHidden = false
 //                    }
@@ -166,7 +169,9 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
             let data = NSData(data: data)
             var num : NSInteger = 0
             data.getBytes(&num, length: data.length)
-            
+            if (num == -1) {
+                self.touchPossible = true
+            }
             if (num == 0) {            // 상대방이 게임 시작
                 self.yournameLabel.text = session.connectedPeers[0].displayName
                 self.startView.isHidden = true
@@ -272,7 +277,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
 
     // touch 되었을 때 함수
     func touchBet() {
-        if (game.myturn == true && (self.game.myBet - self.game.yourBet < self.game.yourChips) && game.myChips > 0 && game.newSet == false ){
+        if (game.myturn == true && (self.game.myBet - self.game.yourBet < self.game.yourChips) && game.myChips > 0 && game.newSet == false && self.game.myBet != 0 && self.touchPossible){
             // 첫 배팅은 무조건 myBet과 yourBet이 같도록 하는것
             if (self.game.myBet < self.game.yourBet){
                 let diff: Int = self.game.yourBet - self.game.myBet
