@@ -32,6 +32,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
     
     var cntTouch = 0
     var mypick = 1
+    var result : Bool?
     let game = Game()
 
     @IBOutlet weak var chooseFirstButton: UIButton!
@@ -56,6 +57,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
     @IBOutlet weak var chipsLabel2: UILabel!
     @IBOutlet weak var betLabel1: UILabel!
     @IBOutlet weak var betLabel2: UILabel!
+    @IBOutlet weak var finalResultLabel: UILabel!
     
     @IBOutlet weak var checkResultLabel: UILabel!
     //CoreMotion
@@ -102,12 +104,19 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
                     }
                 }
                 else if myData1.acceleration.y > -0.3 {
+                    
+//                    if self.result != nil {
+//                        self.finalResultLabel.isHidden = false
+//                    }
                     if (self.game.newSet == true) {
                         self.game.newSet = false
                         self.checkResultLabel.isHidden = true
                         sleep(1)
-                        // 게임 승패가 결정났을 경우 gameResult에 true나 false
                         self.updateBetAndChips()
+                        
+                        if (self.game.myChips == 0 || self.game.yourChips==0){
+                            self.finalResultLabel.isHidden = false
+                        }
                     }
                 }
             }
@@ -185,7 +194,13 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
                 self.updateTurn(myturn: true)
             }
             else if (num == 100) {            // 상대방 배팅이 끝났을 때
-                self.game.yourTurn()
+                if let result = self.game.yourTurn(){
+                    if (result){
+                        self.finalResultLabel.text = "승리"
+                    }else{
+                        self.finalResultLabel.text = "패배"
+                    }
+                }
                 
                 if (self.game.newSet) {
                     self.checkResultLabel.isHidden = false
@@ -319,7 +334,13 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
     func finishBetting(_ sender: UISwipeGestureRecognizer) {
         // 배팅 종료할 때 사운드
         AudioServicesPlaySystemSound (self.systemSoundID_finishBetting)
-        self.game.myTurn()
+        if let result = self.game.myTurn(){
+            if (result){
+                self.finalResultLabel.text = "승리"
+            }else{
+                self.finalResultLabel.text = "패배"
+            }
+        }
         if (game.newSet==true) {
             checkResultLabel.isHidden = false
         }
