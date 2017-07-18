@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		CE03D7371F1DCE2E00823C4D /* card0.png in Resources */ = {isa = PBXBuildFile; fileRef = CE03D7361F1DCE2E00823C4D /* card0.png */; };
-		CE1E50F71F1DF61B005B0075 /* chip.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1E50F61F1DF61B005B0075 /* chip.png */; };
 		CE1E51161F1E19D6005B0075 /* card1.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1E510C1F1E19D6005B0075 /* card1.png */; };
 		CE1E51171F1E19D6005B0075 /* card2.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1E510D1F1E19D6005B0075 /* card2.png */; };
 		CE1E51181F1E19D6005B0075 /* card3.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1E510E1F1E19D6005B0075 /* card3.png */; };
@@ -19,6 +18,7 @@
 		CE1E511D1F1E19D6005B0075 /* card8.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1E51131F1E19D6005B0075 /* card8.png */; };
 		CE1E511E1F1E19D6005B0075 /* card9.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1E51141F1E19D6005B0075 /* card9.png */; };
 		CE1E511F1F1E19D6005B0075 /* card10.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1E51151F1E19D6005B0075 /* card10.png */; };
+		CE1E51211F1E1BCB005B0075 /* chip.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1E51201F1E1BCB005B0075 /* chip.png */; };
 		CE2F69FC1F1DB49300F2D891 /* game.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2F69FB1F1DB49300F2D891 /* game.swift */; };
 		CE4C9AE31F1B5A3200899BEF /* indianpokermark.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4C9AE21F1B5A3200899BEF /* indianpokermark.png */; };
 		CE81641F1F1B83740009D404 /* chips.png in Resources */ = {isa = PBXBuildFile; fileRef = CE81641E1F1B83740009D404 /* chips.png */; };
@@ -31,7 +31,6 @@
 
 /* Begin PBXFileReference section */
 		CE03D7361F1DCE2E00823C4D /* card0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card0.png; sourceTree = "<group>"; };
-		CE1E50F61F1DF61B005B0075 /* chip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chip.png; sourceTree = "<group>"; };
 		CE1E510C1F1E19D6005B0075 /* card1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card1.png; sourceTree = "<group>"; };
 		CE1E510D1F1E19D6005B0075 /* card2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card2.png; sourceTree = "<group>"; };
 		CE1E510E1F1E19D6005B0075 /* card3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card3.png; sourceTree = "<group>"; };
@@ -42,6 +41,7 @@
 		CE1E51131F1E19D6005B0075 /* card8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card8.png; sourceTree = "<group>"; };
 		CE1E51141F1E19D6005B0075 /* card9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card9.png; sourceTree = "<group>"; };
 		CE1E51151F1E19D6005B0075 /* card10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card10.png; sourceTree = "<group>"; };
+		CE1E51201F1E1BCB005B0075 /* chip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chip.png; sourceTree = "<group>"; };
 		CE2F69FB1F1DB49300F2D891 /* game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = game.swift; sourceTree = "<group>"; };
 		CE4C9AE21F1B5A3200899BEF /* indianpokermark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indianpokermark.png; sourceTree = "<group>"; };
 		CE81641E1F1B83740009D404 /* chips.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chips.png; sourceTree = "<group>"; };
@@ -68,6 +68,7 @@
 		CEB508001F1A0F200083A226 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				CE1E51201F1E1BCB005B0075 /* chip.png */,
 				CE1E510C1F1E19D6005B0075 /* card1.png */,
 				CE1E510D1F1E19D6005B0075 /* card2.png */,
 				CE1E510E1F1E19D6005B0075 /* card3.png */,
@@ -80,7 +81,6 @@
 				CE1E51151F1E19D6005B0075 /* card10.png */,
 				CE4C9AE21F1B5A3200899BEF /* indianpokermark.png */,
 				CE81641E1F1B83740009D404 /* chips.png */,
-				CE1E50F61F1DF61B005B0075 /* chip.png */,
 				CE03D7361F1DCE2E00823C4D /* card0.png */,
 			);
 			name = Image;
@@ -183,12 +183,12 @@
 				CE4C9AE31F1B5A3200899BEF /* indianpokermark.png in Resources */,
 				CE1E511D1F1E19D6005B0075 /* card8.png in Resources */,
 				CEFF2D6C1F172A3F005F80A7 /* Assets.xcassets in Resources */,
-				CE1E50F71F1DF61B005B0075 /* chip.png in Resources */,
 				CEFF2D6A1F172A3F005F80A7 /* Main.storyboard in Resources */,
 				CE1E511F1F1E19D6005B0075 /* card10.png in Resources */,
 				CE1E511A1F1E19D6005B0075 /* card5.png in Resources */,
 				CE03D7371F1DCE2E00823C4D /* card0.png in Resources */,
 				CE1E511C1F1E19D6005B0075 /* card7.png in Resources */,
+				CE1E51211F1E1BCB005B0075 /* chip.png in Resources */,
 				CE1E51171F1E19D6005B0075 /* card2.png in Resources */,
 				CE1E51161F1E19D6005B0075 /* card1.png in Resources */,
 				CE1E511B1F1E19D6005B0075 /* card6.png in Resources */,
