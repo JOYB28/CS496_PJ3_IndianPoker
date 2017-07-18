@@ -58,9 +58,11 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
     @IBOutlet weak var chipsLabel2: UILabel!
     @IBOutlet weak var betLabel1: UILabel!
     @IBOutlet weak var betLabel2: UILabel!
+    @IBOutlet weak var movingChipsLabel1: UILabel!
+    @IBOutlet weak var movingChipsLabel2: UILabel!
+    @IBOutlet weak var checkResultLabel: UILabel!
     @IBOutlet weak var finalResultLabel: UILabel!
     
-    @IBOutlet weak var checkResultLabel: UILabel!
     //CoreMotion
     let manager = CMMotionManager()
     
@@ -77,19 +79,10 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         self.assistant = MCAdvertiserAssistant(serviceType: serviceType, discoveryInfo: nil, session: self.session)
         // 채팅 시작을
         self.assistant.start()
-        updateCardImage(0)
         playerView1.layer.borderWidth=2
         playerView1.layer.borderColor=UIColor.clear.cgColor
         playerView2.layer.borderWidth=2
         playerView2.layer.borderColor=UIColor.clear.cgColor
-        chipImageView1.image = UIImage(named: "chips.png")
-        chipImageView2.image = UIImage(named: "chips.png")
-        betImageView1.image = UIImage(named: "chip.png")
-        betImageView2.image = UIImage(named: "chip.png")
-        chipsLabel1.text = "30"
-        chipsLabel2.text = "30"
-        betLabel1.text = "0"
-        betLabel2.text = "0"
         mynameLabel.text = UIDevice.current.name
         // 핸드폰을 머리 위로 올리면 카드가 보이게 하는 것
         manager.accelerometerUpdateInterval = 0.6
@@ -103,7 +96,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
                         self.updateCardImage(self.game.myCard)
                         self.initialBet()
                         self.updateBetAndChips()
-                        self.sendNum(-1)
+                        self.sendNum(50)
                     }
                 }
                 else if myData1.acceleration.y > -0.3 {
@@ -146,6 +139,8 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
     
     @IBAction func gameStart(_ sender: Any) {
         yournameLabel.text = session.connectedPeers[0].displayName
+        initializeGame()
+        updateBetAndChips()
         startView.isHidden = true
         sendNum(0)
         chooseFirstButton.isHidden = false
@@ -169,10 +164,11 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
             let data = NSData(data: data)
             var num : NSInteger = 0
             data.getBytes(&num, length: data.length)
-            if (num == -1) {
+            if (num == 50) {
                 self.touchPossible = true
             }
             if (num == 0) {            // 상대방이 게임 시작
+                self.initializeGame()
                 self.yournameLabel.text = session.connectedPeers[0].displayName
                 self.startView.isHidden = true
             }
@@ -266,13 +262,14 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
     func pickCards() {
         let myNewCard = self.game.pickCard()
         let yourNewCard = self.game.pickCard()
+        self.game.nextSet = false
+        self.game.myCard = myNewCard
+        self.game.yourCard = yourNewCard
+        
         // 자신의 카드, 상대에게는 상대의 카드
         sendNum(myNewCard)
         // 상대의 카드, 상대에게는 자신의 카드
         sendNum(yourNewCard+10)
-        self.game.nextSet = false
-        self.game.myCard = myNewCard
-        self.game.yourCard = yourNewCard
     }
 
     // touch 되었을 때 함수
@@ -348,6 +345,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         }
         if (game.newSet==true) {
             checkResultLabel.isHidden = false
+            
         }
         // 상대에게 100을 보냄
         sendNum(100)
@@ -360,6 +358,17 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         if (game.nextSet == true){
             self.pickCards()
         }
+    }
+    
+    func initializeGame() {
+        game.cardSet = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10]
+        game.myBet = 0
+        game.yourBet = 0
+        game.myChips = 30
+        game.yourChips = 30
+        game.myturn = false
+        game.newSet = false
+        game.nextSet = false
     }
     
     override func didReceiveMemoryWarning() {

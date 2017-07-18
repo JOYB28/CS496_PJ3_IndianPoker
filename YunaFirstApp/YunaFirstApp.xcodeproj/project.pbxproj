@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CE03D7371F1DCE2E00823C4D /* card0.png in Resources */ = {isa = PBXBuildFile; fileRef = CE03D7361F1DCE2E00823C4D /* card0.png */; };
+		CE0E16A31F1E657A00F4F4FA /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0E16A21F1E657A00F4F4FA /* logo.png */; };
 		CE1E51161F1E19D6005B0075 /* card1.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1E510C1F1E19D6005B0075 /* card1.png */; };
 		CE1E51171F1E19D6005B0075 /* card2.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1E510D1F1E19D6005B0075 /* card2.png */; };
 		CE1E51181F1E19D6005B0075 /* card3.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1E510E1F1E19D6005B0075 /* card3.png */; };
@@ -31,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		CE03D7361F1DCE2E00823C4D /* card0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card0.png; sourceTree = "<group>"; };
+		CE0E16A21F1E657A00F4F4FA /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		CE1E510C1F1E19D6005B0075 /* card1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card1.png; sourceTree = "<group>"; };
 		CE1E510D1F1E19D6005B0075 /* card2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card2.png; sourceTree = "<group>"; };
 		CE1E510E1F1E19D6005B0075 /* card3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card3.png; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 		CEB508001F1A0F200083A226 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				CE0E16A21F1E657A00F4F4FA /* logo.png */,
 				CE1E51201F1E1BCB005B0075 /* chip.png */,
 				CE1E510C1F1E19D6005B0075 /* card1.png */,
 				CE1E510D1F1E19D6005B0075 /* card2.png */,
@@ -149,7 +152,7 @@
 				TargetAttributes = {
 					CEFF2D601F172A3F005F80A7 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = F8XX9NR2E4;
+						DevelopmentTeam = A42DJ8H78Z;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -179,6 +182,7 @@
 			files = (
 				CE1E51191F1E19D6005B0075 /* card4.png in Resources */,
 				CEFF2D6F1F172A3F005F80A7 /* LaunchScreen.storyboard in Resources */,
+				CE0E16A31F1E657A00F4F4FA /* logo.png in Resources */,
 				CE81641F1F1B83740009D404 /* chips.png in Resources */,
 				CE4C9AE31F1B5A3200899BEF /* indianpokermark.png in Resources */,
 				CE1E511D1F1E19D6005B0075 /* card8.png in Resources */,
@@ -331,10 +335,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = F8XX9NR2E4;
+				DEVELOPMENT_TEAM = A42DJ8H78Z;
 				INFOPLIST_FILE = YunaFirstApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yoonseo;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.ac.kaist.YunaFirstApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
@@ -347,10 +351,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = F8XX9NR2E4;
+				DEVELOPMENT_TEAM = A42DJ8H78Z;
 				INFOPLIST_FILE = YunaFirstApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yoonseo;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.ac.kaist.YunaFirstApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
