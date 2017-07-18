@@ -217,6 +217,10 @@
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="smL-zf-b03" appends="YES" id="zLg-8y-Hjg"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -243,6 +247,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Xsh-uW-2tN">
+                    <connections>
+                        <action selector="touchBet:" destination="BYZ-38-t0r" id="tpz-JV-jpK"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <swipeGestureRecognizer direction="down" id="smL-zf-b03">
+                    <connections>
+                        <action selector="finishBetting:" destination="BYZ-38-t0r" id="00w-um-Rpx"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="440.80000000000001" y="-0.44977511244377816"/>
         </scene>

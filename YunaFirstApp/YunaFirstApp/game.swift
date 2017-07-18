@@ -16,17 +16,17 @@ class Game {
     var yourBet = 0
     var meFirst = false
     var myturn = false
-    var myCard = 1
-    var yourCard = 1
+    var myCard = 0
+    var yourCard = 0
     var nextSet = false
     
     // pickCard : 현재의 카드셋에서 카드를 하나 뽑아 그 "숫자"를 리턴한다.
     func pickCard() -> Int {
-        let index = Int(arc4random_uniform(UInt32(cardSet.count)))
-        myCard = cardSet.remove(at: index)
         if (cardSet.count == 0) {            //new card deck
             cardSet = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10]
         }
+        let index = Int(arc4random_uniform(UInt32(cardSet.count)))
+        myCard = cardSet.remove(at: index)
         return myCard
     }
     
