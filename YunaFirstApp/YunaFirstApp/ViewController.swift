@@ -94,9 +94,11 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
             if let myData1 = data
             {
                 if myData1.acceleration.y < -0.8 {
-                    self.updateCardImage(self.game.myCard)
-                    self.initialBet()
-                    self.updateBetAndChips()
+                    if (self.game.myBet==0 && self.game.yourBet==0) {
+                        self.updateCardImage(self.game.myCard)
+                        self.initialBet()
+                        self.updateBetAndChips()
+                    }
                 }
             }
         }
