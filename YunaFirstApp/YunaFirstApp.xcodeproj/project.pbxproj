@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE2F69FC1F1DB49300F2D891 /* game.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2F69FB1F1DB49300F2D891 /* game.swift */; };
 		CE4C9AE31F1B5A3200899BEF /* indianpokermark.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4C9AE21F1B5A3200899BEF /* indianpokermark.png */; };
 		CE81641D1F1B6A2F0009D404 /* chip1.png in Resources */ = {isa = PBXBuildFile; fileRef = CE81641C1F1B6A2F0009D404 /* chip1.png */; };
 		CE81641F1F1B83740009D404 /* chips.png in Resources */ = {isa = PBXBuildFile; fileRef = CE81641E1F1B83740009D404 /* chips.png */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE2F69FB1F1DB49300F2D891 /* game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = game.swift; sourceTree = "<group>"; };
 		CE4C9AE21F1B5A3200899BEF /* indianpokermark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indianpokermark.png; sourceTree = "<group>"; };
 		CE81641C1F1B6A2F0009D404 /* chip1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chip1.png; sourceTree = "<group>"; };
 		CE81641E1F1B83740009D404 /* chips.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chips.png; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				CEB508001F1A0F200083A226 /* Image */,
 				CEFF2D641F172A3F005F80A7 /* AppDelegate.swift */,
 				CEFF2D661F172A3F005F80A7 /* ViewController.swift */,
+				CE2F69FB1F1DB49300F2D891 /* game.swift */,
 				CEFF2D681F172A3F005F80A7 /* Main.storyboard */,
 				CEFF2D6B1F172A3F005F80A7 /* Assets.xcassets */,
 				CEFF2D6D1F172A3F005F80A7 /* LaunchScreen.storyboard */,
@@ -197,6 +200,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE2F69FC1F1DB49300F2D891 /* game.swift in Sources */,
 				CEFF2D671F172A3F005F80A7 /* ViewController.swift in Sources */,
 				CEFF2D651F172A3F005F80A7 /* AppDelegate.swift in Sources */,
 			);
