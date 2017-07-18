@@ -23,11 +23,16 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
     var mypick = 1
     let game = Game()
 
+    @IBOutlet weak var chooseFirstButton: UIButton!
     @IBOutlet weak var startView: UIView!
     @IBOutlet weak var gameStartButton: UIButton!
+    
     @IBOutlet weak var whoseTurn: UILabel!
     @IBOutlet weak var gameResult: UILabel!
     @IBOutlet weak var touchCnt: UILabel!
+    
+    @IBOutlet weak var playerView1: UIView!
+    @IBOutlet weak var playerView2: UIView!
     @IBOutlet weak var cardView: UIImageView!
     @IBOutlet weak var leftCards: UILabel!
     @IBOutlet weak var chipImageView1: UIImageView!
@@ -39,10 +44,6 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
     @IBOutlet weak var chipsLabel2: UILabel!
     @IBOutlet weak var betLabel1: UILabel!
     @IBOutlet weak var betLabel2: UILabel!
-
-    @IBAction func gameStart(_ sender: Any) {
-        startView.isHidden = true
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,7 +58,9 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         self.assistant = MCAdvertiserAssistant(serviceType: serviceType, discoveryInfo: nil, session: self.session)
         // 채팅 시작을
         self.assistant.start()
-                
+        updateCardImage(0)
+        playerView1.layer.borderWidth=2
+        playerView2.layer.borderWidth=2
         chipImageView1.image = UIImage(named: "chips.png")
         chipImageView2.image = UIImage(named: "chips.png")
         betImageView1.image = UIImage(named: "chip1.png")
@@ -66,10 +69,33 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         chipsLabel2.text = "30"
         betLabel1.text = "0"
         betLabel2.text = "0"
-        
+    }
+    
+    func browserViewControllerDidFinish(
+        _ browserViewController: MCBrowserViewController)  {
+        // Called when the browser view controller is dismissed (ie the Done button was tapped)
+        gameStartButton.isEnabled = true
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func gameStart(_ sender: Any) {
+        startView.isHidden = true
+        sendNum(0)
+        chooseFirstButton.isHidden = false
+        chooseFirstButton.isEnabled = true
+    }
+    
+    @IBAction func chooseFirst(_ sender: Any) {
+        pickFirstCards()
+        chooseFirstButton.isHidden = true
+        chooseFirstButton.isEnabled = false
     }
     
     // 블루투스 상대에게 NSData가 보내져왔을때
+    // 0: Game Start
+    // 1~20: Card Pick for new game set
+    // 21~40: Card Pick for choosing First
+    // 100: Bet Over    101: One Chip Bet
     func session(_ session: MCSession, didReceive data: Data,
                  fromPeer peerID: MCPeerID)  {
         DispatchQueue.main.async() {
@@ -77,22 +103,37 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
             var num : NSInteger = 0
             data.getBytes(&num, length: data.length)
             
-            // 상대가 버튼을 눌러서 상대가 선이고, 내가 후일때
-            if (num == 200) {
-                self.game.meFirst = false
-                self.game.myturn = false
-                self.whoseTurn.text = "Your turn"
-                self.game.nextSet = false
-                self.game.myBet += 1
-                self.game.yourBet += 1
-                self.game.myChips -= 1
-                self.game.yourChips -= 1
-                self.updateBetAndChips()
+            if (num == 0) {            // 상대방이 게임 시작
+                self.startView.isHidden = true
             }
-            // 상대방 배팅이 끝났을 때
-            else if (num == 100) {
+
+            else if (num <= 10) {       // 상대 카드 숫자 (1~10)
+                self.game.yourCard = num
+                if let index = self.game.cardSet.index(of : self.game.myCard){
+                    self.game.cardSet.remove(at: index)
+                }
+            }
+            else if (num <= 20) {       // 내 카드 숫자+10 (11~20)
+                self.game.myCard = num - 10
+                if let index = self.game.cardSet.index(of : self.game.myCard){
+                    self.game.cardSet.remove(at: index)
+                }
+            }
+            
+            else if (num <= 30) {       // 상대방이 선플레이어일때 카드숫자+20 (21~30)
+                self.updateCardImage(num-20)
+                self.game.meFirst = false
+                self.updateTurn(myturn: false)
+            }
+            else if (num <= 40) {       // 내가 선플레이어일때 카드숫자+30 (31~40)
+                self.updateCardImage(num-30)
+                self.game.meFirst = true
+                self.updateTurn(myturn: true)
+            }
+                
+            else if (num == 100) {            // 상대방 배팅이 끝났을 때
                 self.gameResult.text = self.game.yourTurn()?.description
-                self.game.myturn = true
+                self.updateTurn(myturn: true)
                 self.whoseTurn.text = "My turn"
                 self.chipsLabel1.text = self.game.myChips.description
                 self.chipsLabel2.text = self.game.yourChips.description
@@ -100,9 +141,10 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
                 self.betLabel2.text = self.game.yourBet.description
                 // 게임을 이긴사람이 카드를 각각 뽑아 전송하기
                 if (self.game.nextSet == true){
-                    self.pickMineAndYours()
+                    self.pickCards()
                 }
             }
+                
             // 상대가 배팅을 하나씩 했을 때
             else if (num == 101) {
                 //첫 배팅일 경우 숫자를 맞추는 배팅
@@ -116,72 +158,56 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
                 self.betLabel2.text = self.game.yourBet.description
                 self.chipsLabel2.text = self.game.yourChips.description
             }
-            // 내 카드 숫자가 올때 (11~20)
-            else if (num > 10) {
-                self.game.myCard = num - 10
-                let currentCard = UIImage(named: "card\(self.game.myCard).png")
-                self.cardView.image = currentCard
-                if let index = self.game.cardSet.index(of : self.game.myCard){
-                    self.game.cardSet.remove(at: index)
-                }
-            }
-            // 상대 카드 정보가 올때 (1~10)
-            else if (num > 0) {
-                self.game.yourCard = num
-                if let index = self.game.cardSet.index(of : self.game.myCard){
-                    self.game.cardSet.remove(at: index)
-                }
-            }
+
         }
     }
     
-    // 카드를 각각 뽑아 전송하기 함수
-    func pickMineAndYours() {
-        var myNewCard = self.game.pickCard()
-        let yourNewCard = self.game.pickCard()
-        var temp = yourNewCard + 10
-        // 자신의 카드, 상대에게는 상대의 카드
-        let data1 = NSData(bytes: &myNewCard, length: MemoryLayout<NSInteger>.size)
-        do {
-            try self.session.send(data1 as Data, toPeers: self.session.connectedPeers, with: MCSessionSendDataMode.unreliable)
-        } catch {
-            print(error)
-        }
-        // 상대의 카드, 상대에게는 자신의 카드
-        let data2 = NSData(bytes: &temp, length: MemoryLayout<NSInteger>.size)
-        do {
-            try self.session.send(data2 as Data, toPeers: self.session.connectedPeers, with: MCSessionSendDataMode.unreliable)
-        } catch {
-            print(error)
-        }
-        self.game.nextSet = false
-        self.game.myCard = myNewCard
-        self.game.yourCard = yourNewCard
-        // 카드 표시
-        let currentCard = UIImage(named: "card\(myNewCard).png")
-        self.cardView.image = currentCard
-    }
-    
-    @IBAction func chooseFirstTurn(_ sender: Any) {
-        // 200을 보냄. 내가 선이고, 상대가 후가 됨
-        var tempMypick = 200
-        let data = NSData(bytes: &tempMypick, length: MemoryLayout<NSInteger>.size)
+    // send number to other player
+    func sendNum(_ num: Int) {
+        var temp = num
+        let data = NSData(bytes: &temp, length: MemoryLayout<NSInteger>.size)
         do {
             try self.session.send(data as Data, toPeers: self.session.connectedPeers, with: MCSessionSendDataMode.unreliable)
         } catch {
             print(error)
         }
-
-        self.game.meFirst = true
-        self.game.myturn = true
-        self.whoseTurn.text = "My turn"
+    }
+    
+    func pickFirstCards() {
+        var nums = [1,2,3,4,5,6,7,8,9,10]
+        let myFirstCard = nums.remove(at: Int(arc4random_uniform(UInt32(10))))
+        let yourFirstCard = nums.remove(at: Int(arc4random_uniform(UInt32(9))))
         
-        //2초후 게임 시작을 위해 카드를 각각 뽑음
-        sleep(2)
-        pickMineAndYours()
-        //기본 배팅으로 1개씩 진행
-        self.initialBet()
-        self.updateBetAndChips()
+        if (myFirstCard > yourFirstCard) {  // 내가 먼저면 상대카드+20 전송
+            sendNum(yourFirstCard+20)
+            whoseTurn.text = "myturn"
+            self.game.meFirst = true
+            self.updateTurn(myturn: true)
+        } else {                            // 상대방이 먼저면 상대카드+30 전송
+            sendNum(yourFirstCard+30)
+            whoseTurn.text = "your turn"
+            self.game.meFirst = false
+            self.updateTurn(myturn: false)
+        }
+        updateCardImage(myFirstCard)
+        pickCards()
+    }
+    
+    // 카드를 각각 뽑아 전송하기 함수
+    func pickCards() {
+        let myNewCard = self.game.pickCard()
+        let yourNewCard = self.game.pickCard()
+        // 자신의 카드, 상대에게는 상대의 카드
+        sendNum(myNewCard)
+        // 상대의 카드, 상대에게는 자신의 카드
+        sendNum(yourNewCard+10)
+        self.game.nextSet = false
+        self.game.myCard = myNewCard
+        self.game.yourCard = yourNewCard
+    }
+    
+    @IBAction func showCard(_ sender: Any) {
+        updateCardImage(self.game.myCard)
     }
     
     // touch로 배팅하는 것
@@ -211,12 +237,31 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
             }
         }
     }
+    
+    // update card image
+    func updateCardImage(_ num: Int) {
+        let currentCard = UIImage(named: "card\(num).png")
+        self.cardView.image = currentCard
+    }
+    
     // 초록색 부분의 bet과 chips 수를 update
     func updateBetAndChips() {
         betLabel1.text = self.game.myBet.description
         betLabel2.text = self.game.yourBet.description
         chipsLabel1.text = self.game.myChips.description
         chipsLabel2.text = self.game.yourChips.description
+    }
+    
+    func updateTurn(myturn: Bool) {
+        if myturn {
+            game.myturn = true
+            playerView1.layer.borderColor=UIColor.black.cgColor
+            playerView2.layer.borderColor=UIColor.clear.cgColor
+        } else {
+            game.myturn = false
+            playerView2.layer.borderColor=UIColor.black.cgColor
+            playerView1.layer.borderColor=UIColor.clear.cgColor
+        }
     }
     
     // 기본으로 하나씩 배팅하는 것
@@ -240,14 +285,14 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         } catch {
             print(error)
         }
-        game.myturn = false
+        updateTurn(myturn: false)
         whoseTurn.text = "your turn"
         cntTouch = 0
         touchCnt.text = cntTouch.description
         
         // 게임을 이긴사람이 카드를 각각 뽑아 전송하기
         if (game.nextSet == true){
-            self.pickMineAndYours()
+            self.pickCards()
         }
     }
     
@@ -258,13 +303,6 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
     
     @IBAction func browserBtnTab(_ sender: Any) {
         self.present(self.browser, animated: true, completion: nil)
-    }
-    
-    func browserViewControllerDidFinish(
-        _ browserViewController: MCBrowserViewController)  {
-        // Called when the browser view controller is dismissed (ie the Done button was tapped)
-        gameStartButton.isEnabled = true
-        self.dismiss(animated: true, completion: nil)
     }
     
     func browserViewControllerWasCancelled(
