@@ -63,8 +63,8 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         playerView2.layer.borderWidth=2
         chipImageView1.image = UIImage(named: "chips.png")
         chipImageView2.image = UIImage(named: "chips.png")
-        betImageView1.image = UIImage(named: "chip1.png")
-        betImageView2.image = UIImage(named: "chip1.png")
+        betImageView1.image = UIImage(named: "chip.png")
+        betImageView2.image = UIImage(named: "chip.png")
         chipsLabel1.text = "30"
         chipsLabel2.text = "30"
         betLabel1.text = "0"
