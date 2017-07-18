@@ -19,6 +19,7 @@ class Game {
     var myCard = 0
     var yourCard = 0
     var nextSet = false
+    var newSet = false
     
     // pickCard : 현재의 카드셋에서 카드를 하나 뽑아 그 "숫자"를 리턴한다.
     func pickCard() -> Int {
@@ -41,22 +42,26 @@ class Game {
                 myChips -= 10
             }
             meFirst = false
+            newSet = true
         } else if (myBet > yourBet) {  // more bet
+            newSet = false
         } else if ( myCard > yourCard) {    // Card open (win)
             myChips += (myBet + yourBet)
             myBet = 0
             yourBet = 0
             meFirst = true
             nextSet = true
-            
+            newSet = true
         } else if ( myCard == yourCard) {   //          (draw)
             // next Stage
             nextSet = true
+            newSet = true
         } else if ( myCard < yourCard) {    //          (loose)
             yourChips += (myBet + yourBet)
             myBet = 0
             yourBet = 0
             meFirst = false
+            newSet = true
         }
         
         // Game Over
@@ -80,21 +85,26 @@ class Game {
             }
             nextSet = true
             meFirst = true
+            newSet = true
         } else if ( yourBet > myBet) {  // more bet
+            newSet = false
         } else if ( myCard > yourCard) {    // Card open (win)
             myChips += (myBet + yourBet)
             myBet = 0
             yourBet = 0
             meFirst = true
             nextSet = true
+            newSet = true
         } else if ( myCard == yourCard) {   //           (draw)
             // next Stage
-            nextSet = true
+            nextSet = false
+            newSet = true
         } else if ( myCard < yourCard) {    //           (loose)
             yourChips += (myBet + yourBet)
             myBet = 0
             yourBet = 0
             meFirst = false
+            newSet = true
         }
         // Game Over
         if (yourChips == 0) {

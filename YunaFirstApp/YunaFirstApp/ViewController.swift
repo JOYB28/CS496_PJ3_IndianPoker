@@ -57,6 +57,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
     @IBOutlet weak var betLabel1: UILabel!
     @IBOutlet weak var betLabel2: UILabel!
     
+    @IBOutlet weak var checkResultLabel: UILabel!
     //CoreMotion
     let manager = CMMotionManager()
     
@@ -93,14 +94,24 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         manager.startAccelerometerUpdates(to: OperationQueue.current!) { (data, error) in
             if let myData1 = data
             {
-                if myData1.acceleration.y < -0.8 {
-                    if (self.game.myBet==0 && self.game.yourBet==0) {
+                if myData1.acceleration.y < -0.85 {
+                    if (self.game.myBet == 0 && self.game.yourBet == 0 && self.game.newSet == false) {
                         self.updateCardImage(self.game.myCard)
                         self.initialBet()
                         self.updateBetAndChips()
                     }
                 }
+                else if myData1.acceleration.y > -0.3 {
+                    if (self.game.newSet == true) {
+                        self.game.newSet = false
+                        self.checkResultLabel.isHidden = true
+                        sleep(1)
+                        // 게임 승패가 결정났을 경우 gameResult에 true나 false
+                        self.updateBetAndChips()
+                    }
+                }
             }
+            
         }
         // swipedown
         swipeDownRec.addTarget(self, action: #selector(ViewController.finishBetting(_:)))
@@ -174,16 +185,15 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
                 self.updateTurn(myturn: true)
             }
             else if (num == 100) {            // 상대방 배팅이 끝났을 때
-                self.gameResult.text = self.game.yourTurn()?.description
+                self.game.yourTurn()
+                
+                if (self.game.newSet) {
+                    self.checkResultLabel.isHidden = false
+                }
                 self.updateTurn(myturn: true)
-                self.chipsLabel1.text = self.game.myChips.description
-                self.chipsLabel2.text = self.game.yourChips.description
-                self.betLabel1.text = self.game.myBet.description
-                self.betLabel2.text = self.game.yourBet.description
                 // 게임을 이긴사람이 카드를 각각 뽑아 전송하기
                 if (self.game.nextSet == true){
                     self.pickCards()
-                    
                 }
             }
             // 상대가 배팅을 하나씩 했을 때
@@ -244,15 +254,10 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         self.game.myCard = myNewCard
         self.game.yourCard = yourNewCard
     }
-    
-    // 버튼으로 카드 보이게 하기
-    @IBAction func showCard(_ sender: Any) {
-        updateCardImage(self.game.myCard)
-    }
 
     // touch 되었을 때 함수
     func touchBet() {
-        if (game.myturn == true && (self.game.myBet - self.game.yourBet < self.game.yourChips) && game.myChips > 0){
+        if (game.myturn == true && (self.game.myBet - self.game.yourBet < self.game.yourChips) && game.myChips > 0 && game.newSet == false ){
             // 첫 배팅은 무조건 myBet과 yourBet이 같도록 하는것
             if (self.game.myBet < self.game.yourBet){
                 let diff: Int = self.game.yourBet - self.game.myBet
@@ -279,6 +284,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         //AudioServicesPlaySystemSound (self.systemSoundID_cardChange)
         let currentCard = UIImage(named: "card\(num).png")
         self.cardView.image = currentCard
+        leftCards.text = self.game.cardSet.description
     }
     
     // 초록색 부분의 bet과 chips 수를 update
@@ -309,35 +315,14 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         game.yourChips -= 1
     }
     
-    // 자신의 배팅이 종료되었음을 의미
-    @IBAction func shakeButton(_ sender: Any) {
-        // 게임 승패가 결정났을 경우 gameResult에 true나 false
-        self.gameResult.text = self.game.myTurn()?.description
-        updateBetAndChips()
-        var betOver = 100
-        let data = NSData(bytes: &betOver, length: MemoryLayout<NSInteger>.size)
-        do {
-            try self.session.send(data as Data, toPeers: self.session.connectedPeers, with: MCSessionSendDataMode.unreliable)
-        } catch {
-            print(error)
-        }
-        updateTurn(myturn: false)
-        cntTouch = 0
-        touchCnt.text = cntTouch.description
-        
-        // 게임을 이긴사람이 카드를 각각 뽑아 전송하기
-        if (game.nextSet == true){
-            self.pickCards()
-        }
-    }
-    
     // 아래 swipe로 배팅을 종료시키는 것,
     func finishBetting(_ sender: UISwipeGestureRecognizer) {
         // 배팅 종료할 때 사운드
         AudioServicesPlaySystemSound (self.systemSoundID_finishBetting)
-        // 게임 승패가 결정났을 경우 gameResult에 true나 false
-        self.gameResult.text = self.game.myTurn()?.description
-        updateBetAndChips()
+        self.game.myTurn()
+        if (game.newSet==true) {
+            checkResultLabel.isHidden = false
+        }
         // 상대에게 100을 보냄
         sendNum(100)
         
