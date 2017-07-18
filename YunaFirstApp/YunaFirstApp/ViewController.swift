@@ -42,6 +42,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
     @IBOutlet weak var betImageView1: UIImageView!
     @IBOutlet weak var betImageView2: UIImageView!
 
+    @IBOutlet weak var yournameLabel: UILabel!
     @IBOutlet weak var mynameLabel: UILabel!
     @IBOutlet weak var chipsLabel1: UILabel!
     @IBOutlet weak var chipsLabel2: UILabel!
@@ -78,7 +79,6 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         betLabel1.text = "0"
         betLabel2.text = "0"
         mynameLabel.text = UIDevice.current.name
-        
         // 핸드폰을 머리 위로 올리면 카드가 보이게 하는 것
         manager.accelerometerUpdateInterval = 0.6
     
@@ -111,6 +111,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
     }
     
     @IBAction func gameStart(_ sender: Any) {
+        yournameLabel.text = session.connectedPeers[0].displayName
         startView.isHidden = true
         sendNum(0)
         chooseFirstButton.isHidden = false
@@ -136,6 +137,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
             data.getBytes(&num, length: data.length)
             
             if (num == 0) {            // 상대방이 게임 시작
+                self.yournameLabel.text = session.connectedPeers[0].displayName
                 self.startView.isHidden = true
             }
 
