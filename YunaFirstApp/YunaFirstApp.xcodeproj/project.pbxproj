@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CE03D7371F1DCE2E00823C4D /* card0.png in Resources */ = {isa = PBXBuildFile; fileRef = CE03D7361F1DCE2E00823C4D /* card0.png */; };
 		CE0E16A31F1E657A00F4F4FA /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0E16A21F1E657A00F4F4FA /* logo.png */; };
+		CE0E16A51F1E735E00F4F4FA /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE0E16A41F1E735E00F4F4FA /* Media.xcassets */; };
 		CE1E51161F1E19D6005B0075 /* card1.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1E510C1F1E19D6005B0075 /* card1.png */; };
 		CE1E51171F1E19D6005B0075 /* card2.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1E510D1F1E19D6005B0075 /* card2.png */; };
 		CE1E51181F1E19D6005B0075 /* card3.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1E510E1F1E19D6005B0075 /* card3.png */; };
@@ -33,6 +34,7 @@
 /* Begin PBXFileReference section */
 		CE03D7361F1DCE2E00823C4D /* card0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card0.png; sourceTree = "<group>"; };
 		CE0E16A21F1E657A00F4F4FA /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		CE0E16A41F1E735E00F4F4FA /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		CE1E510C1F1E19D6005B0075 /* card1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card1.png; sourceTree = "<group>"; };
 		CE1E510D1F1E19D6005B0075 /* card2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card2.png; sourceTree = "<group>"; };
 		CE1E510E1F1E19D6005B0075 /* card3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card3.png; sourceTree = "<group>"; };
@@ -47,7 +49,7 @@
 		CE2F69FB1F1DB49300F2D891 /* game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = game.swift; sourceTree = "<group>"; };
 		CE4C9AE21F1B5A3200899BEF /* indianpokermark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indianpokermark.png; sourceTree = "<group>"; };
 		CE81641E1F1B83740009D404 /* chips.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chips.png; sourceTree = "<group>"; };
-		CEFF2D611F172A3F005F80A7 /* YunaFirstApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YunaFirstApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEFF2D611F172A3F005F80A7 /* Indian Poker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Indian Poker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEFF2D641F172A3F005F80A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEFF2D661F172A3F005F80A7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		CEFF2D691F172A3F005F80A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 		CEFF2D581F172A3F005F80A7 = {
 			isa = PBXGroup;
 			children = (
+				CE0E16A41F1E735E00F4F4FA /* Media.xcassets */,
 				CEFF2D631F172A3F005F80A7 /* YunaFirstApp */,
 				CEFF2D621F172A3F005F80A7 /* Products */,
 			);
@@ -100,7 +103,7 @@
 		CEFF2D621F172A3F005F80A7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CEFF2D611F172A3F005F80A7 /* YunaFirstApp.app */,
+				CEFF2D611F172A3F005F80A7 /* Indian Poker.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -137,7 +140,7 @@
 			);
 			name = YunaFirstApp;
 			productName = YunaFirstApp;
-			productReference = CEFF2D611F172A3F005F80A7 /* YunaFirstApp.app */;
+			productReference = CEFF2D611F172A3F005F80A7 /* Indian Poker.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -187,6 +190,7 @@
 				CE4C9AE31F1B5A3200899BEF /* indianpokermark.png in Resources */,
 				CE1E511D1F1E19D6005B0075 /* card8.png in Resources */,
 				CEFF2D6C1F172A3F005F80A7 /* Assets.xcassets in Resources */,
+				CE0E16A51F1E735E00F4F4FA /* Media.xcassets in Resources */,
 				CEFF2D6A1F172A3F005F80A7 /* Main.storyboard in Resources */,
 				CE1E511F1F1E19D6005B0075 /* card10.png in Resources */,
 				CE1E511A1F1E19D6005B0075 /* card5.png in Resources */,
@@ -333,13 +337,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = F8XX9NR2E4;
 				INFOPLIST_FILE = YunaFirstApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+<<<<<<< HEAD
 				PRODUCT_BUNDLE_IDENTIFIER = com.yoonseo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+=======
+				PRODUCT_BUNDLE_IDENTIFIER = com.yunaseol;
+				PRODUCT_NAME = "Indian Poker";
+>>>>>>> bbd08f8fb320611b63cecfb7e6aa7699b66d3183
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
@@ -349,13 +359,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = F8XX9NR2E4;
 				INFOPLIST_FILE = YunaFirstApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+<<<<<<< HEAD
 				PRODUCT_BUNDLE_IDENTIFIER = com.yoonseo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+=======
+				PRODUCT_BUNDLE_IDENTIFIER = com.yunaseol;
+				PRODUCT_NAME = "Indian Poker";
+>>>>>>> bbd08f8fb320611b63cecfb7e6aa7699b66d3183
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
