@@ -14,8 +14,8 @@ class Game {
     var yourChips = 30
     var myBet = 0
     var yourBet = 0
-    var meFirst = true
-    var myturn = true
+    var meFirst = false
+    var myturn = false
     var myCard = 1
     var yourCard = 1
     var nextSet = false
