@@ -10,7 +10,15 @@ import UIKit
 import CoreMotion
 import MultipeerConnectivity
 
+import AVFoundation
+
 class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessionDelegate, UITextFieldDelegate {
+    
+    // audio sound
+    var audioPlayer = AVAudioPlayer()
+    let systemSoundID_betting: SystemSoundID = 1113
+    let systemSoundID_cardChange: SystemSoundID = 1106
+    let systemSoundID_finishBetting: SystemSoundID = 1004	
     
     let tapRec = UITapGestureRecognizer()
     let swipeDownRec = UISwipeGestureRecognizer()
@@ -85,7 +93,6 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
                 if myData1.acceleration.y < -0.8 {
                     self.updateCardImage(self.game.myCard)
                 }
-                
             }
         }
         // swipedown
@@ -134,7 +141,6 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
             if (num == 0) {            // 상대방이 게임 시작
                 self.startView.isHidden = true
             }
-
             else if (num <= 10) {       // 상대 카드 숫자 (1~10)
                 self.game.yourCard = num
                 if let index = self.game.cardSet.index(of : self.game.myCard){
@@ -147,7 +153,6 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
                     self.game.cardSet.remove(at: index)
                 }
             }
-            
             else if (num <= 30) {       // 상대방이 선플레이어일때 카드숫자+20 (21~30)
                 self.updateCardImage(num-20)
                 self.game.meFirst = false
@@ -158,7 +163,6 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
                 self.game.meFirst = true
                 self.updateTurn(myturn: true)
             }
-                
             else if (num == 100) {            // 상대방 배팅이 끝났을 때
                 self.gameResult.text = self.game.yourTurn()?.description
                 self.updateTurn(myturn: true)
@@ -172,7 +176,6 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
                     self.pickCards()
                 }
             }
-                
             // 상대가 배팅을 하나씩 했을 때
             else if (num == 101) {
                 //첫 배팅일 경우 숫자를 맞추는 배팅
@@ -187,7 +190,6 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
                 self.betLabel2.text = self.game.yourBet.description
                 self.chipsLabel2.text = self.game.yourChips.description
             }
-
         }
     }
     
@@ -254,53 +256,19 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
                 self.game.myBet += 1
                 self.game.myChips -= 1
             }
+            AudioServicesPlaySystemSound (systemSoundID_betting)
             
             betLabel1.text = self.game.myBet.description
             chipsLabel1.text = self.game.myChips.description
             touchCnt.text = cntTouch.description
             // 화면 터치는 101을 보냄
-            var tempCntTouch = 101
-            let data = NSData(bytes: &tempCntTouch, length: MemoryLayout<NSInteger>.size)
-            do {
-                try self.session.send(data as Data, toPeers: self.session.connectedPeers, with: MCSessionSendDataMode.unreliable)
-            } catch {
-                print(error)
-            }
+            sendNum(101)
         }
     }
     
-    /*
-    // touch로 배팅하는 것
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if (game.myturn == true && (self.game.myBet - self.game.yourBet < self.game.yourChips) && game.myChips > 0){
-            // 첫 배팅은 무조건 myBet과 yourBet이 같도록 하는것
-            if (self.game.myBet < self.game.yourBet){
-                let diff: Int = self.game.yourBet - self.game.myBet
-                cntTouch += diff
-                self.game.myBet += diff
-                self.game.myChips -= diff
-            }else{                      //일반적인 경우
-                cntTouch += 1
-                self.game.myBet += 1
-                self.game.myChips -= 1
-            }
-            
-            betLabel1.text = self.game.myBet.description
-            chipsLabel1.text = self.game.myChips.description
-            touchCnt.text = cntTouch.description
-            // 화면 터치는 101을 보냄
-            var tempCntTouch = 101
-            let data = NSData(bytes: &tempCntTouch, length: MemoryLayout<NSInteger>.size)
-            do {
-                try self.session.send(data as Data, toPeers: self.session.connectedPeers, with: MCSessionSendDataMode.unreliable)
-            } catch {
-                print(error)
-            }
-        }
-    }*/
-    
     // update card image
     func updateCardImage(_ num: Int) {
+        //AudioServicesPlaySystemSound (self.systemSoundID_cardChange)
         let currentCard = UIImage(named: "card\(num).png")
         self.cardView.image = currentCard
     }
@@ -340,7 +308,6 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         updateBetAndChips()
         var betOver = 100
         let data = NSData(bytes: &betOver, length: MemoryLayout<NSInteger>.size)
-        
         do {
             try self.session.send(data as Data, toPeers: self.session.connectedPeers, with: MCSessionSendDataMode.unreliable)
         } catch {
@@ -359,17 +326,14 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
     
     // 아래 swipe로 배팅을 종료시키는 것,
     func finishBetting(_ sender: UISwipeGestureRecognizer) {
+        // 배팅 종료할 때 사운드
+        AudioServicesPlaySystemSound (self.systemSoundID_finishBetting)
         // 게임 승패가 결정났을 경우 gameResult에 true나 false
         self.gameResult.text = self.game.myTurn()?.description
         updateBetAndChips()
-        var betOver = 100
-        let data = NSData(bytes: &betOver, length: MemoryLayout<NSInteger>.size)
+        // 상대에게 100을 보냄
+        sendNum(100)
         
-        do {
-            try self.session.send(data as Data, toPeers: self.session.connectedPeers, with: MCSessionSendDataMode.unreliable)
-        } catch {
-            print(error)
-        }
         updateTurn(myturn: false)
         whoseTurn.text = "your turn"
         cntTouch = 0
