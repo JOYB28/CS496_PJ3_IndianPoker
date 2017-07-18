@@ -65,9 +65,9 @@ class Game {
         }
         
         // Game Over
-        if (yourChips == 0 && yourBet == 0) {
+        if (yourChips == 0 && yourBet == 0 || (yourChips == 0 && myBet == yourBet)) {
             return true
-        } else if (myChips == 0 && myBet == 0) {
+        } else if (myChips == 0 && myBet == 0 || (myChips == 0 && myBet == yourBet)) {
             return false
         }
         return nil
@@ -107,9 +107,9 @@ class Game {
             newSet = true
         }
         // Game Over
-        if (yourChips == 0 && yourBet == 0) {
+        if (yourChips == 0 && yourBet == 0 || (yourChips == 0 && myBet == yourBet)) {
             return true
-        } else if (myChips == 0 && myBet == 0) {
+        } else if (myChips == 0 && myBet == 0 || (myChips == 0 && myBet == yourBet)) {
             return false
         }
         return nil

@@ -16,6 +16,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
     
     // audio sound
     var audioPlayer = AVAudioPlayer()
+    // 터치할때 소리, 배팅 완료할 때 소리
     let systemSoundID_betting: SystemSoundID = 1113
     let systemSoundID_cardChange: SystemSoundID = 1106
     let systemSoundID_finishBetting: SystemSoundID = 1004	
@@ -84,14 +85,16 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         playerView2.layer.borderWidth=2
         playerView2.layer.borderColor=UIColor.clear.cgColor
         mynameLabel.text = UIDevice.current.name
-        // 핸드폰을 머리 위로 올리면 카드가 보이게 하는 것
+        
+        // CMMotionManager을 사용하는 부분
         manager.accelerometerUpdateInterval = 0.6
-    
+        
         manager.startAccelerometerUpdates(to: OperationQueue.current!) { (data, error) in
             if let myData1 = data
             {
-                // 들었을 때
+                // 카드를 들어 이마에 붙일때
                 if myData1.acceleration.y < -0.85 {
+                    // set을 시작하는 상황
                     if (self.game.myBet == 0 && self.game.yourBet == 0 && self.game.newSet == false) {
                         self.updateCardImage(self.game.myCard)
                         self.initialBet()
@@ -99,17 +102,18 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
                         self.sendNum(50)
                     }
                 }
+                // 카드를 내려 놓을 때
                 else if myData1.acceleration.y > -0.3 {
+                    // touch로 배팅이 안되게 함
                     self.touchPossible = false
-//                    if self.result != nil {
-//                        self.finalResultLabel.isHidden = false
-//                    }
+
                     if (self.game.newSet == true) {
                         self.game.newSet = false
                         self.checkResultLabel.isHidden = true
                         sleep(1)
                         self.updateBetAndChips()
                         
+                        // 게임이 완전히 종료되어 승패가 결정된 상황
                         if (self.game.myChips == 0 || self.game.yourChips==0){
                             self.finalResultLabel.isHidden = false
                         }
@@ -118,11 +122,11 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
             }
             
         }
-        // swipedown
+        // swipedown(배팅을 종료하는 상황)을 인식
         swipeDownRec.addTarget(self, action: #selector(ViewController.finishBetting(_:)))
         swipeDownRec.direction = .down
         self.view!.addGestureRecognizer(swipeDownRec)
-        // touch
+        // touch 인식
         tapRec.addTarget(self, action:#selector(ViewController.touchBet))
         tapRec.numberOfTouchesRequired = 1
         tapRec.numberOfTapsRequired = 1
