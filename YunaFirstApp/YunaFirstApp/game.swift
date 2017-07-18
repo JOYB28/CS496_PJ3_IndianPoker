@@ -33,7 +33,7 @@ class Game {
     
     // myTurn : 현재의 mybet, yourbet으로 자신의 차례를 진행한다.
     func myTurn() -> Bool? {
-        if (myBet < yourBet) {          // die, 내가 지는 것
+        if (myBet == 1 || myBet < yourBet) {          // die, 내가 지는 것
             yourChips += (myBet + yourBet)
             myBet = 0
             yourBet = 0
@@ -65,9 +65,9 @@ class Game {
         }
         
         // Game Over
-        if (yourChips == 0) {
+        if (yourChips == 0 && yourBet == 0) {
             return true
-        } else if (myChips == 0) {
+        } else if (myChips == 0 && myBet == 0) {
             return false
         }
         return nil
@@ -75,7 +75,7 @@ class Game {
     
     // myTurn : 현재의 mybet, yourbet으로 자신의 차례를 진행한다.
     func yourTurn() -> Bool? {
-        if (yourBet < myBet) {          // die
+        if (yourBet == 1  || yourBet < myBet) {          // die
             myChips += (myBet + yourBet)
             myBet = 0
             yourBet = 0
@@ -107,9 +107,9 @@ class Game {
             newSet = true
         }
         // Game Over
-        if (yourChips == 0) {
+        if (yourChips == 0 && yourBet == 0) {
             return true
-        } else if (myChips == 0) {
+        } else if (myChips == 0 && myBet == 0) {
             return false
         }
         return nil
