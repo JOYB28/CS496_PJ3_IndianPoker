@@ -240,7 +240,7 @@
                         <outlet property="chipsLabel1" destination="N2N-TD-3jV" id="ogm-IQ-Y6y"/>
                         <outlet property="chipsLabel2" destination="qei-NI-LvR" id="KDZ-Hu-May"/>
                         <outlet property="chooseFirstButton" destination="l5B-aU-lw3" id="skl-tH-7is"/>
-                        <outlet property="finalResultLabel" destination="cXG-Lr-kfd" id="Qaa-2S-zOk"/>
+                        <outlet property="finalResultLabel" destination="cXG-Lr-kfd" id="W9d-cT-VM7"/>
                         <outlet property="gameResult" destination="YXu-np-hRZ" id="naf-eD-XMy"/>
                         <outlet property="gameStartButton" destination="fmO-ln-VoM" id="mH0-GG-OYa"/>
                         <outlet property="leftCards" destination="1nF-jo-cq6" id="l7Z-Xw-ElE"/>

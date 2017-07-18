@@ -60,6 +60,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
     @IBOutlet weak var movingChipsLabel1: UILabel!
     @IBOutlet weak var movingChipsLabel2: UILabel!
     @IBOutlet weak var checkResultLabel: UILabel!
+    @IBOutlet weak var finalResultLabel: UILabel!
     
     //CoreMotion
     let manager = CMMotionManager()
@@ -112,7 +113,6 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
                     if (self.game.newSet == true) {
                         self.game.newSet = false
                         self.checkResultLabel.isHidden = true
-                        if (self.game.)
                         sleep(1)
                         self.updateBetAndChips()
                         
@@ -367,8 +367,8 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         game.cardSet = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10]
         game.myBet = 0
         game.yourBet = 0
-        game.myChips = 0
-        game.yourChips = 0
+        game.myChips = 30
+        game.yourChips = 30
         game.myturn = false
         game.newSet = false
         game.nextSet = false
