@@ -56,8 +56,10 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
     @IBOutlet weak var chipsLabel2: UILabel!
     @IBOutlet weak var betLabel1: UILabel!
     @IBOutlet weak var betLabel2: UILabel!
-    
+    @IBOutlet weak var movingChipsLabel1: UILabel!
+    @IBOutlet weak var movingChipsLabel2: UILabel!
     @IBOutlet weak var checkResultLabel: UILabel!
+    
     //CoreMotion
     let manager = CMMotionManager()
     
@@ -105,8 +107,8 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
                     if (self.game.newSet == true) {
                         self.game.newSet = false
                         self.checkResultLabel.isHidden = true
+                        if (self.game.)
                         sleep(1)
-                        // 게임 승패가 결정났을 경우 gameResult에 true나 false
                         self.updateBetAndChips()
                     }
                 }
@@ -135,6 +137,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
     @IBAction func gameStart(_ sender: Any) {
         yournameLabel.text = session.connectedPeers[0].displayName
         startView.isHidden = true
+        initializeGame()
         sendNum(0)
         chooseFirstButton.isHidden = false
         chooseFirstButton.isEnabled = true
@@ -159,6 +162,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
             data.getBytes(&num, length: data.length)
             
             if (num == 0) {            // 상대방이 게임 시작
+                self.initializeGame()
                 self.yournameLabel.text = session.connectedPeers[0].displayName
                 self.startView.isHidden = true
             }
@@ -246,13 +250,14 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
     func pickCards() {
         let myNewCard = self.game.pickCard()
         let yourNewCard = self.game.pickCard()
+        self.game.nextSet = false
+        self.game.myCard = myNewCard
+        self.game.yourCard = yourNewCard
+        
         // 자신의 카드, 상대에게는 상대의 카드
         sendNum(myNewCard)
         // 상대의 카드, 상대에게는 자신의 카드
         sendNum(yourNewCard+10)
-        self.game.nextSet = false
-        self.game.myCard = myNewCard
-        self.game.yourCard = yourNewCard
     }
 
     // touch 되었을 때 함수
@@ -322,6 +327,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         self.game.myTurn()
         if (game.newSet==true) {
             checkResultLabel.isHidden = false
+            
         }
         // 상대에게 100을 보냄
         sendNum(100)
@@ -334,6 +340,17 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         if (game.nextSet == true){
             self.pickCards()
         }
+    }
+    
+    func initializeGame() {
+        game.cardSet = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10]
+        game.myBet = 0
+        game.yourBet = 0
+        game.myChips = 0
+        game.yourChips = 0
+        game.myturn = false
+        game.newSet = false
+        game.nextSet = false
     }
     
     override func didReceiveMemoryWarning() {
