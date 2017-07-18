@@ -149,7 +149,7 @@
 				TargetAttributes = {
 					CEFF2D601F172A3F005F80A7 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = F8XX9NR2E4;
+						DevelopmentTeam = A42DJ8H78Z;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -331,10 +331,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = F8XX9NR2E4;
+				DEVELOPMENT_TEAM = A42DJ8H78Z;
 				INFOPLIST_FILE = YunaFirstApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yoonseo;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.ac.kaist.YunaFirstApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
@@ -347,10 +347,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = F8XX9NR2E4;
+				DEVELOPMENT_TEAM = A42DJ8H78Z;
 				INFOPLIST_FILE = YunaFirstApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yoonseo;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.ac.kaist.YunaFirstApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
